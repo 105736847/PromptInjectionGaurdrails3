@@ -1,0 +1,30 @@
+.layout-fie-stage {
+  display: flex;
+  gap: 8px;
+  height: 190px;
+  padding: 8px;
+  max-width: 100%;
+  transition: width 200ms ease;
+}
+
+.layout-fie-item {
+  /* Flex items normally refuse to shrink below their content (min-width: auto).
+     min-width: 0 lets them shrink all the way, so flex-shrink is easy to see. */
+  min-width: 0;
+  overflow: hidden;
+  align-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  cursor: pointer;
+}
+.layout-fie-item[aria-pressed='true'] {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.layout-fie-label {
+  font-size: 1.3rem;
+}
+.layout-fie-flex {
+  font-size: 0.72rem;
+  font-weight: 500;
+}

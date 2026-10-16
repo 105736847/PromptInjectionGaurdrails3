@@ -1,0 +1,570 @@
+/* Styles for the "Serving an ML Model" page. Every class starts with "mlserve-".
+   Colours come from the theme tokens in index.css, so light and dark both work. */
+
+/* ---- Inputs ---------------------------------------------------------------- */
+.mlserve-url-form {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.mlserve-url-form .error-text {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+.mlserve-url-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.mlserve-url-row .input {
+  flex: 1 1 240px;
+  min-width: 0;
+  font-size: 0.85rem;
+}
+.mlserve-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 0 1 220px;
+  min-width: 170px;
+}
+.mlserve-slider-wide {
+  flex: 1 1 260px;
+  max-width: 420px;
+}
+.mlserve-slider input {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+.mlserve-chips button[aria-pressed='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+
+/* ---- Predict one URL ----------------------------------------------------------- */
+.mlserve-predict-result {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  align-items: center;
+  gap: 16px 28px;
+  padding: 16px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+}
+.mlserve-gauge {
+  display: flex;
+  justify-content: center;
+}
+.mlserve-gauge-track {
+  fill: var(--color-surface-3);
+}
+.mlserve-gauge-value {
+  transition: fill 300ms ease;
+}
+.mlserve-gauge-value.is-safe {
+  fill: var(--color-success);
+}
+.mlserve-gauge-value.is-suspicious {
+  fill: var(--color-danger);
+}
+.mlserve-gauge-threshold line {
+  stroke: var(--color-text);
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+.mlserve-gauge-value-text {
+  fill: var(--color-text);
+  font-size: 30px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.mlserve-verdict {
+  padding: 4px 12px;
+  font-size: 1rem;
+}
+.mlserve-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 4px 16px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.mlserve-facts dt {
+  color: var(--color-text-muted);
+}
+.mlserve-facts dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* ---- Why this prediction? -------------------------------------------------------- */
+.mlserve-equation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 6px 8px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.mlserve-equation > span {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+}
+.mlserve-equation small {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+}
+.mlserve-equation > .mlserve-op {
+  padding: 6px 0;
+  background: none;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+.mlserve-equation > .is-suspicious {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+.mlserve-equation > .is-safe {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+.mlserve-hit {
+  fill: transparent;
+}
+.mlserve-bar-row {
+  outline: none;
+}
+.mlserve-bar-row path {
+  transition: opacity var(--transition);
+}
+.mlserve-bar-row.is-dimmed path {
+  opacity: 0.35;
+}
+.mlserve-bar-row:focus-visible .mlserve-hit {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+.mlserve-zero {
+  stroke: var(--color-text-muted);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+}
+.mlserve-feature-table tbody tr.is-active {
+  background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+}
+.mlserve-feature-table th,
+.mlserve-feature-table td {
+  padding: 6px 12px;
+}
+.mlserve-feature-table tbody th {
+  font-weight: 500;
+}
+/* A button inside a flex column keeps its own width */
+.mlserve-self-start {
+  align-self: flex-start;
+}
+/* "353 → 108": the raw value was outside the training range and was clipped */
+.mlserve-clipped {
+  color: var(--color-warning);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.mlserve-details summary {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.mlserve-tip-label {
+  flex: 1;
+  color: var(--color-text-muted);
+}
+
+/* ---- Batch predictions ------------------------------------------------------------- */
+.mlserve-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 22px 16px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.mlserve-dropzone:hover,
+.mlserve-dropzone.is-dragging {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+.mlserve-dropzone:focus-within {
+  box-shadow: var(--focus-ring);
+}
+.mlserve-dropzone > svg {
+  color: var(--color-primary);
+}
+.mlserve-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.mlserve-tiles > div {
+  padding: 10px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.mlserve-tiles dt {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.mlserve-tiles dd {
+  margin: 2px 0 0;
+  font-size: 1.35rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.mlserve-tiles dd.mlserve-tile-note {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-subtle);
+}
+.mlserve-table-scroll {
+  max-height: 360px;
+  overflow: auto;
+}
+.mlserve-table-scroll thead th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+.mlserve-url-cell {
+  max-width: 420px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 0.8rem;
+}
+.mlserve-prob {
+  display: inline-block;
+  width: 44px;
+  height: 6px;
+  margin-right: 8px;
+  vertical-align: middle;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  overflow: hidden;
+}
+.mlserve-prob-bar {
+  display: block;
+  height: 100%;
+  background: var(--chart-1);
+}
+.mlserve-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+.mlserve-sort:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+.mlserve-ok {
+  color: var(--color-success);
+  vertical-align: -2px;
+}
+.mlserve-miss {
+  color: var(--color-danger);
+  vertical-align: -2px;
+}
+
+/* ---- Charts -------------------------------------------------------------------------- */
+.mlserve-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+}
+.mlserve-figure-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+.mlserve-figure .viz-legend {
+  margin: 0;
+}
+.mlserve-dimmed {
+  opacity: 0.45;
+}
+.mlserve-marker line {
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+}
+.mlserve-marker text {
+  fill: var(--color-text);
+  font-size: 11px;
+  font-weight: 600;
+}
+.mlserve-reference {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.mlserve-area {
+  fill: var(--chart-1);
+  opacity: 0.1;
+}
+.mlserve-line {
+  fill: none;
+  stroke: var(--chart-1);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.mlserve-hover-dot {
+  fill: var(--chart-1);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.mlserve-operating {
+  fill: var(--color-text);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+.mlserve-halo {
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.mlserve-report-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 24px;
+}
+.mlserve-cm-wrap {
+  border: 0;
+}
+.mlserve-cm {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 2px; /* the 2px surface gap between touching cells */
+}
+.mlserve-cm th {
+  padding: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.mlserve-cm th[scope='row'] {
+  text-align: right;
+}
+.mlserve-cm-cell {
+  padding: 14px 8px;
+  border-radius: var(--radius-sm);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  transition: background var(--transition);
+}
+.mlserve-cm-cell strong {
+  display: block;
+  font-size: 1.4rem;
+}
+.mlserve-cm-cell span,
+.mlserve-cm-cell small {
+  display: block;
+  font-size: 0.78rem;
+}
+.mlserve-cm-cell small {
+  opacity: 0.85;
+}
+
+/* ---- How the model is served -------------------------------------------------------- */
+.mlserve-flow-wrap {
+  container-type: inline-size;
+}
+.mlserve-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.mlserve-flow-step {
+  position: relative;
+}
+/* An arrow between the steps: pointing down when stacked, right when in a row. */
+.mlserve-flow-step:not(:last-child)::after {
+  content: '↓';
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  transform: translateX(-50%);
+  color: var(--color-text-subtle);
+  font-size: 1rem;
+  line-height: 1;
+}
+.mlserve-flow-step button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+}
+.mlserve-flow-step.is-offline button {
+  border-style: dashed;
+}
+.mlserve-flow-step button:hover {
+  border-color: var(--color-primary);
+}
+.mlserve-flow-step button:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+.mlserve-flow-step button[aria-pressed='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+.mlserve-flow-step button > svg {
+  color: var(--color-primary);
+}
+.mlserve-flow-step code {
+  font-size: 0.72rem;
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+.mlserve-flow-stage {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+@container (min-width: 720px) {
+  .mlserve-flow {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .mlserve-flow-step:not(:last-child)::after {
+    content: '→';
+    left: auto;
+    right: -15px;
+    bottom: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+}
+.mlserve-step-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.mlserve-step-detail .demo-output {
+  white-space: pre;
+  overflow-x: auto;
+}
+.mlserve-live {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+/* ---- Latency under load ---------------------------------------------------------------- */
+.mlserve-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.mlserve-compare-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 72px;
+  grid-template-areas: 'label track value';
+  align-items: center;
+  gap: 4px 12px;
+}
+.mlserve-compare-label {
+  grid-area: label;
+}
+.mlserve-compare-row strong {
+  grid-area: value;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.mlserve-compare-track {
+  grid-area: track;
+  height: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  overflow: hidden;
+}
+.mlserve-compare-track > span {
+  display: block;
+  height: 100%;
+  min-width: 2px;
+  border-radius: 0 4px 4px 0;
+  background: var(--chart-2);
+  transition: width 400ms ease;
+}
+
+/* ---- Small screens ----------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  .mlserve-report-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .mlserve-predict-result {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mlserve-compare-row {
+    grid-template-columns: minmax(0, 1fr) max-content;
+    grid-template-areas: 'label value' 'track track';
+  }
+  .mlserve-url-cell {
+    max-width: 150px;
+  }
+}

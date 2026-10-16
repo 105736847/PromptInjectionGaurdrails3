@@ -1,0 +1,185 @@
+/* Styles used only by the "Networks, Trees & Maps" page (all classes start with "d3-networks-").
+   Most chart styling is done inline by D3 (.style(...)) or React (style={{ … }}) with CSS
+   variables, so the charts follow the light/dark theme without re-rendering. */
+
+/* A framed "stage" for charts that can be panned or zoomed. The <svg> clips
+   its own content (so zoomed shapes stay inside) while the tooltip, a sibling
+   of the <svg>, may still overlap the frame. */
+.d3-networks-stage {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.d3-networks-stage svg {
+  overflow: hidden;
+  border-radius: var(--radius);
+  /* One finger scrolls the PAGE (no scroll trap on a phone); the browser's own pinch-zoom is
+     switched off, so two-finger gestures reach d3-zoom (see helpers/scrollFriendlyZoom.js).
+     d3.drag sets touch-action: none on each draggable node, so nodes can still be dragged. */
+  touch-action: pan-x pan-y;
+}
+
+/* Search box + button in a control row */
+.d3-networks-search {
+  display: flex;
+  gap: 6px;
+  flex: 1 1 240px;
+  max-width: 360px;
+}
+.d3-networks-search .input {
+  flex: 1;
+  min-width: 0;
+  height: 32px;
+  font-size: 0.85rem;
+}
+.d3-networks-search .btn {
+  flex-shrink: 0; /* keep the icon full size when the row is narrow */
+}
+
+/* A labelled range slider with its current value */
+.d3-networks-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.d3-networks-slider input {
+  width: 110px;
+}
+.d3-networks-slider output {
+  min-width: 4.5ch;
+  color: var(--color-text);
+}
+
+/* Tooltip rows (helpers/ChartTooltip.jsx → TooltipRow): key · label · value.
+   The value is pushed to the right edge, so the numbers form one easy-to-scan column. */
+.d3-networks-tooltip-value {
+  margin-left: auto;
+  padding-left: 12px;
+  color: var(--color-text);
+  white-space: nowrap;
+}
+
+/* Round legend swatch for node-link charts */
+.d3-networks-dot {
+  border-radius: 50%;
+}
+
+/* Legend buttons that open/close a branch. The text stays at full contrast; the dot shows
+   the state in the same visual language as the tree: filled = closed, hollow ring = open. */
+.viz-legend .d3-networks-legend-toggle[aria-pressed='false'] {
+  text-decoration: none;
+  opacity: 1;
+}
+.d3-networks-legend-toggle .viz-swatch {
+  border: 2px solid var(--swatch);
+  background: var(--swatch);
+}
+.d3-networks-legend-toggle[aria-pressed='true'] .viz-swatch {
+  background: var(--color-surface);
+}
+
+/* "No data" legend swatch: the same diagonal hatch as the map's <pattern> */
+.d3-networks-hatch {
+  background: repeating-linear-gradient(45deg, var(--color-border-strong) 0 1.5px, var(--color-surface-2) 1.5px 4px);
+  box-shadow: inset 0 0 0 1px var(--color-border-strong);
+}
+
+/* Breadcrumb trail above zoomable charts (it sits in the .viz-controls row, which adds the spacing) */
+.d3-networks-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.85rem;
+}
+.d3-networks-crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  color: var(--color-text-subtle);
+}
+.d3-networks-crumbs button {
+  padding: 2px 6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  cursor: pointer;
+}
+.d3-networks-crumbs button:hover {
+  background: var(--color-primary-soft);
+}
+.d3-networks-crumbs [aria-current='page'] {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Focus ring for SVG marks that can be reached with Tab */
+.d3-networks-stage [tabindex]:focus-visible,
+.viz svg [tabindex]:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.viz svg [tabindex]:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Labels that fade in once a layout animation has finished */
+.d3-networks-fade-in {
+  animation: d3-networks-fade 300ms ease-out 650ms both;
+}
+@keyframes d3-networks-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Globe: dashes that flow along each great-circle arc towards Melbourne */
+.d3-networks-flow {
+  stroke-dasharray: 5 7;
+  animation: d3-networks-dash 1.1s linear infinite;
+}
+@keyframes d3-networks-dash {
+  to {
+    stroke-dashoffset: -12;
+  }
+}
+
+/* Two-column layout: chart + side table, stacking on narrow screens */
+.d3-networks-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 16px;
+}
+
+/* Compact table rows + a button that looks like a link (choropleth "top countries") */
+.d3-networks-compact-table th,
+.d3-networks-compact-table td {
+  padding: 6px 12px;
+}
+/* the global .table rule drops the last row's border only on <td>; our row headers are <th> */
+.d3-networks-compact-table tbody tr:last-child th {
+  border-bottom: 0;
+}
+.d3-networks-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 4px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-primary);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.d3-networks-link-button:hover {
+  background: var(--color-primary-soft);
+}

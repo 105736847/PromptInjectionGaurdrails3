@@ -1,0 +1,573 @@
+/* fullstack-crud.css – styles for the Database CRUD page only.
+   Every class starts with "crud-" because all CSS in a Vite app is global.
+   Colours come from the theme variables, so light and dark mode both work. */
+
+/* ---------- shared bits ---------- */
+.crud-panel-title {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.crud-mono-panel {
+  margin: 0;
+  max-height: 320px;
+}
+.crud-spinner-sm {
+  width: 14px;
+  height: 14px;
+  border-width: 2px;
+}
+.crud-spin {
+  animation: spin 0.8s linear infinite;
+}
+.crud-grade {
+  min-width: 2.4em;
+  justify-content: center;
+}
+.crud-danger-text,
+.crud-danger-text:hover {
+  color: var(--color-danger);
+}
+.crud-wrap {
+  white-space: normal !important;
+  min-width: 180px;
+}
+.crud-details summary {
+  cursor: pointer;
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 4px 0;
+}
+.crud-details[open] summary {
+  margin-bottom: 8px;
+}
+
+/* HTTP verbs as coloured labels */
+.crud-verb {
+  display: inline-block;
+  min-width: 4.4em;
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 700;
+  text-align: center;
+}
+.crud-verb-get { background: var(--color-info-soft); color: var(--color-info); }
+.crud-verb-post { background: var(--color-success-soft); color: var(--color-success); }
+.crud-verb-patch { background: var(--color-warning-soft); color: var(--color-warning); }
+.crud-verb-delete { background: var(--color-danger-soft); color: var(--color-danger); }
+
+/* ---------- tables ---------- */
+/* position: relative makes the wrapper the containing block of the absolutely
+   positioned .visually-hidden captions, so they scroll with the table instead
+   of widening the whole page on phones. */
+.crud-table-wrap {
+  position: relative;
+}
+.crud-table td,
+.crud-table th {
+  padding: 8px 10px;
+  vertical-align: middle;
+}
+/* Long values may wrap, so the table fits without scrolling on a laptop */
+.crud-table td.crud-wrap-cell {
+  white-space: normal;
+  min-width: 7.5rem;
+}
+.crud-table thead th {
+  padding: 0;
+}
+.crud-table thead th:not(:has(button)) {
+  padding: 10px;
+}
+.crud-sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  width: 100%;
+  padding: 10px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-transform: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+.crud-table th.num .crud-sort {
+  justify-content: flex-end;
+}
+.crud-sort:hover,
+.crud-sort.is-active {
+  color: var(--color-text);
+}
+.crud-sort svg {
+  flex-shrink: 0;
+  opacity: 0.55;
+}
+/* Icons inside buttons in narrow cells must not be squeezed to 0 px */
+.crud-table .btn svg {
+  flex-shrink: 0;
+}
+.crud-sub {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.crud-sort.is-active svg {
+  opacity: 1;
+  color: var(--color-primary);
+}
+.crud-actions {
+  text-align: right;
+  width: 1%;
+}
+.crud-confirm {
+  flex-wrap: nowrap;
+  gap: 6px;
+  justify-content: flex-end;
+}
+.crud-empty {
+  padding: 24px 12px !important;
+}
+
+/* Old rows stay visible but dimmed while the next request is running */
+.crud-is-loading {
+  opacity: 0.5;
+  transition: opacity 150ms ease 120ms; /* small delay → fast answers don't flicker */
+  cursor: progress;
+}
+
+/* A row that was just created / updated */
+.crud-row-flash {
+  animation: crud-flash 4s ease-out;
+}
+@keyframes crud-flash {
+  0%,
+  35% {
+    background: var(--color-success-soft);
+    box-shadow: inset 3px 0 0 var(--color-success);
+  }
+  100% {
+    background: transparent;
+    box-shadow: inset 3px 0 0 transparent;
+  }
+}
+
+/* ---------- 1. server-side table ---------- */
+.crud-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.crud-input-icon {
+  position: relative;
+}
+.crud-input-icon svg {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-subtle);
+  pointer-events: none;
+}
+.crud-input-icon .input {
+  padding-left: 34px;
+}
+.crud-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+}
+.crud-pagination-buttons {
+  gap: 2px;
+}
+.crud-page-size {
+  gap: 8px;
+}
+.crud-page-size .input {
+  width: auto;
+  height: 32px;
+  padding: 0 8px;
+}
+.crud-request-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 16px;
+}
+
+/* ---------- 2. create / 3. edit ---------- */
+.crud-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.crud-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+  gap: 12px 14px;
+}
+.crud-field-wide {
+  grid-column: span 2;
+}
+.crud-mini-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.crud-mini-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+}
+.crud-mini-list li:last-child {
+  border-bottom: 0;
+}
+.crud-mini-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* The native <dialog> used by EditDialog.jsx */
+.crud-dialog {
+  width: min(720px, calc(100vw - 24px));
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-lg);
+}
+.crud-dialog::backdrop {
+  background: rgb(10 12 20 / 0.55);
+}
+.crud-dialog-form {
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100dvh - 26px);
+}
+.crud-dialog-header,
+.crud-dialog-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 14px 18px;
+}
+.crud-dialog-header {
+  border-bottom: 1px solid var(--color-border);
+}
+.crud-dialog-footer {
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+.crud-dialog-body {
+  padding: 16px 18px;
+  overflow-y: auto;
+}
+
+/* ---------- 4. delete ---------- */
+.crud-undo {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+  padding: 10px 14px 13px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  overflow: hidden;
+}
+.crud-undo-timer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--color-primary);
+  transform-origin: left;
+  animation: crud-countdown linear forwards;
+}
+@keyframes crud-countdown {
+  to {
+    transform: scaleX(0);
+  }
+}
+
+/* ---------- 5. stats ---------- */
+.crud-kpis {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.crud-kpi {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+}
+.crud-kpi-value {
+  font-size: 1.7rem;
+  font-weight: 700;
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+  border-radius: var(--radius-sm);
+  animation: crud-kpi-flash 1.2s ease-out;
+  align-self: flex-start;
+}
+@keyframes crud-kpi-flash {
+  from {
+    background: var(--color-primary-soft);
+  }
+}
+.crud-kpi-hint {
+  align-self: flex-start;
+  font-size: 0.72rem;
+}
+.crud-charts {
+  gap: 24px;
+}
+.crud-bar {
+  fill: var(--chart-1);
+  transition: d 300ms ease;
+}
+.crud-bar-hit {
+  fill: transparent;
+}
+.crud-bar-row {
+  cursor: default;
+  outline: none;
+  transition: opacity 150ms ease;
+}
+.crud-bar-row:focus-visible .crud-bar-hit {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+
+/* ---------- 6. request flow ---------- */
+.crud-flow {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+.crud-seq svg {
+  display: block;
+  overflow: visible;
+  font-family: var(--font-sans);
+}
+.crud-seq-lifeline {
+  stroke: var(--color-border-strong);
+  stroke-width: 1;
+}
+.crud-seq-actor {
+  fill: var(--color-surface-2);
+  stroke: var(--color-border-strong);
+}
+.crud-seq-actor-label {
+  fill: var(--color-text);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+.crud-seq-step {
+  cursor: pointer;
+  outline: none;
+}
+.crud-seq-band {
+  fill: transparent;
+}
+.crud-seq-step:hover .crud-seq-band {
+  fill: var(--color-surface-2);
+}
+.crud-seq-step.is-active .crud-seq-band {
+  fill: var(--color-primary-soft);
+}
+.crud-seq-step:focus-visible .crud-seq-band {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+.crud-seq-line {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 1.5;
+}
+.crud-seq-dashed {
+  stroke-dasharray: 5 4;
+}
+.crud-seq-head {
+  fill: var(--color-text-muted);
+}
+.crud-seq-num {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+}
+.crud-seq-num-label {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  font-weight: 700;
+}
+.crud-seq-tag {
+  fill: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+}
+.crud-seq-step.is-next .crud-seq-line,
+.crud-seq-step.is-next .crud-seq-head {
+  opacity: 0.45;
+}
+.crud-seq-step.is-active .crud-seq-line {
+  stroke: var(--color-primary);
+  stroke-width: 2.5;
+}
+.crud-seq-step.is-active .crud-seq-head,
+.crud-seq-step.is-active .crud-seq-num {
+  fill: var(--color-primary);
+  stroke: var(--color-primary);
+}
+.crud-seq-step.is-active .crud-seq-num-label {
+  fill: var(--color-on-primary);
+}
+.crud-seq-step.is-active .crud-seq-tag {
+  fill: var(--color-primary);
+  font-weight: 700;
+}
+.crud-seq-step.is-skipped {
+  opacity: 0.3;
+}
+.crud-seq-step.is-skipped .crud-seq-line {
+  stroke-dasharray: 2 4;
+}
+.crud-step-detail {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  min-width: 0;
+}
+.crud-step-kicker {
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+}
+.crud-code {
+  border-radius: var(--radius);
+}
+.crud-code pre {
+  max-height: 240px;
+}
+.crud-live {
+  border-left-width: 3px;
+}
+.crud-live-info { border-left-color: var(--color-info); }
+.crud-live-success { border-left-color: var(--color-success); }
+.crud-live-danger { border-left-color: var(--color-danger); }
+.crud-live-muted { border-left-color: var(--color-border-strong); color: var(--color-text-muted); }
+
+.crud-rest-table td {
+  padding: 8px 12px;
+  vertical-align: middle;
+}
+
+/* ---------- 7. hook lab ---------- */
+.crud-lab-controls {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: 16px;
+  align-items: end;
+}
+.crud-lab-result {
+  padding: 12px 14px;
+}
+.crud-lab-names {
+  margin: 8px 0 0;
+  padding-left: 1.2em;
+  font-size: 0.9rem;
+}
+.crud-log {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+}
+.crud-log li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+.crud-log li:last-child {
+  border-bottom: 0;
+}
+.crud-log-url {
+  flex: 1;
+  min-width: 80px;
+}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px) {
+  .crud-filters {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .crud-search {
+    grid-column: 1 / -1;
+  }
+  .crud-split,
+  .crud-flow,
+  .crud-request-panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  /* Compact tables: drop secondary columns and show icon-only action buttons
+     (their aria-label still names them) so the actions stay on screen */
+  .crud-table .crud-hide-sm,
+  .crud-table .crud-btn-label {
+    display: none;
+  }
+  .crud-table td {
+    padding-inline: 8px;
+  }
+  /* "Delete Priya? / Yes, delete / Cancel" stacks instead of widening the table */
+  .crud-confirm {
+    flex-wrap: wrap;
+  }
+  .crud-lab-controls {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crud-field-wide {
+    grid-column: auto;
+  }
+  .crud-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .crud-pagination {
+    justify-content: center;
+  }
+}

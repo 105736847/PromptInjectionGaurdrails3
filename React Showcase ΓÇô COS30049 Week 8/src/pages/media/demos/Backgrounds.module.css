@@ -1,0 +1,57 @@
+/* The photo and overlay come from the inline style; the rest is fixed here */
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 260px;
+  padding: 28px;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-surface-3); /* shown while the photo loads */
+  background-size: cover;
+  background-repeat: no-repeat;
+  /* Text sits on a darkened PHOTO, so white works in both themes */
+  color: #fff;
+}
+.eyebrow {
+  margin: 0 0 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.heroTitle {
+  margin: 0 0 6px;
+  font-size: clamp(1.4rem, 4vw, 2.1rem);
+  max-width: 18ch;
+  text-shadow: 0 2px 12px rgb(0 0 0 / 0.4);
+}
+.heroText {
+  margin: 0;
+  opacity: 0.9;
+}
+
+.presets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.swatch {
+  height: 84px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}
+.code {
+  font-size: 0.7rem;
+  color: var(--color-text-muted);
+  overflow-wrap: anywhere;
+}
+
+.preview {
+  min-height: 200px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+}

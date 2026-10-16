@@ -1,0 +1,238 @@
+/* Styles used only by the "Hooks & Lifecycle" page.
+   All class names start with "hooks-" because every CSS file is global once loaded. */
+
+.hooks-auto-width {
+  width: auto;
+}
+.hooks-break {
+  overflow-wrap: anywhere; /* let long URLs wrap on narrow screens */
+}
+
+/* Clock ------------------------------------------------------------------- */
+.hooks-clock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+}
+.hooks-clock-time {
+  font-family: var(--font-mono);
+  font-size: clamp(1.8rem, 6vw, 2.6rem);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  color: var(--color-primary);
+}
+
+/* Logs (DependencyLab, LifecycleLog) --------------------------------------- */
+.hooks-log {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 160px;
+  max-height: 360px;
+  margin: 0;
+  padding: 12px 14px;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  font-size: 0.82rem;
+}
+.hooks-probe {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-primary-soft);
+}
+.hooks-badge {
+  align-items: center;
+}
+
+/* Timers ----------------------------------------------------------------- */
+.hooks-timer {
+  align-items: flex-start;
+}
+.hooks-timer-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.hooks-stopwatch-value {
+  font-size: clamp(2rem, 7vw, 2.8rem);
+}
+.hooks-laps {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 420px;
+  max-height: 220px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+.hooks-laps li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: 0.88rem;
+}
+.hooks-laps li.is-fastest {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+.hooks-laps li.is-slowest {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+/* Render counters --------------------------------------------------------- */
+.hooks-render-count {
+  display: inline-block;
+  min-width: 2ch;
+  padding: 0 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  font-family: var(--font-mono);
+  text-align: center;
+}
+
+/* useMemo ----------------------------------------------------------------- */
+.hooks-memo-box {
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  transition: background var(--transition), border-color var(--transition);
+}
+.hooks-memo-box.is-highlighted {
+  background: var(--color-warning-soft);
+  border-color: var(--color-warning);
+}
+.hooks-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+}
+.hooks-stats > div {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.hooks-stats dt {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.hooks-stats dd {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+
+/* useContext nested boxes ------------------------------------------------- */
+.hooks-ctx-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 20px 12px 12px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+}
+.hooks-ctx-box.is-consumer {
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 6%, transparent);
+}
+.hooks-ctx-label {
+  position: absolute;
+  top: -11px;
+  left: 10px;
+  max-width: calc(100% - 20px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 1px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Custom hooks ------------------------------------------------------------ */
+.hooks-results {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.hooks-results li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+}
+.hooks-window-size {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+.hooks-size-bar {
+  position: relative;
+  height: 12px;
+  margin-bottom: 18px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+}
+.hooks-size-bar > div {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width 150ms ease;
+}
+.hooks-size-bar > span {
+  position: absolute;
+  top: 14px;
+  transform: translateX(-50%);
+  font-size: 0.7rem;
+  color: var(--color-text-subtle);
+}
+.hooks-size-bar > span::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 2px;
+  height: 12px;
+  background: var(--color-text-subtle);
+}

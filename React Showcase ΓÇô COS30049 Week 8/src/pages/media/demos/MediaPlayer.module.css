@@ -1,0 +1,174 @@
+/* ---------- Video player ---------- */
+.player {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+}
+.player:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000; /* letterbox bars are black in every theme, like any video player */
+  cursor: pointer;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0 0 56px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgb(0 0 0 / 0.45);
+  pointer-events: none;
+}
+
+.bigPlay {
+  position: absolute;
+  top: calc(50% - 28px);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  transition: transform var(--transition);
+}
+.bigPlay:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 6px;
+  padding: 8px 10px;
+  border-top: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+.time {
+  min-width: 88px;
+  color: var(--color-text-muted);
+}
+
+/* A range input whose played part is coloured: the gradient stops at --fill */
+.seek {
+  flex: 1 1 140px;
+  height: 6px;
+  appearance: none;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    to right,
+    var(--color-primary) var(--fill, 0%),
+    var(--color-surface-3) var(--fill, 0%)
+  );
+  cursor: pointer;
+}
+.seek::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--color-surface);
+}
+.seek::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  border: 2px solid var(--color-surface);
+}
+
+.volume {
+  width: 80px;
+}
+.speed {
+  width: 76px;
+  height: 32px;
+  padding: 0 6px;
+}
+
+/* Full screen: the player fills the screen, video grows, controls stay at the bottom */
+.player:fullscreen {
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  background: #000;
+}
+.player:fullscreen .video {
+  flex: 1;
+  aspect-ratio: auto;
+  min-height: 0;
+  object-fit: contain;
+}
+
+/* ---------- Audio player ---------- */
+.audio {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--color-primary-soft), var(--color-surface));
+}
+.audioPlay {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  cursor: pointer;
+}
+.audioMain {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 200px;
+  min-width: 0;
+}
+
+/* Animated "equaliser" bars – only move while playing */
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 28px;
+}
+.bars span {
+  width: 4px;
+  height: 30%;
+  border-radius: 2px;
+  background: var(--color-primary);
+}
+.barsPlaying span {
+  animation: bounce 0.9s ease-in-out infinite alternate;
+}
+.bars span:nth-child(2) { animation-delay: -0.3s; }
+.bars span:nth-child(3) { animation-delay: -0.6s; }
+.bars span:nth-child(4) { animation-delay: -0.15s; }
+.bars span:nth-child(5) { animation-delay: -0.45s; }
+@keyframes bounce {
+  to {
+    height: 100%;
+  }
+}

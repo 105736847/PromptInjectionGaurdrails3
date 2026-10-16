@@ -1,0 +1,59 @@
+/* CSS Module: these class names are made unique at build time,
+   so .grid here can never clash with a .grid on another page. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+.sample {
+  margin: 0;
+}
+
+/* Some browsers give these tags very little styling – make them visible */
+.sample mark {
+  background: color-mix(in srgb, var(--color-warning) 30%, transparent);
+  color: inherit;
+  padding: 0 2px;
+  border-radius: 3px;
+}
+.sample ins {
+  text-decoration-color: var(--color-success);
+  color: var(--color-success);
+}
+.sample del {
+  color: var(--color-danger);
+}
+.sample abbr[title] {
+  cursor: help;
+  text-decoration: underline dotted;
+}
+.sample dfn {
+  font-weight: 600;
+}
+.sample samp {
+  padding: 0 4px;
+  border-radius: 4px;
+  background: var(--code-bg);
+}
+
+/* A narrow box so <wbr> has a reason to break the long word */
+.narrow {
+  display: inline-block;
+  max-width: 150px;
+  padding: 2px 6px;
+  border: 1px dashed var(--color-border-strong);
+}

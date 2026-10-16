@@ -1,0 +1,105 @@
+/* ---- Ruler (positions come from React as inline styles) ---- */
+.layout-bp-now {
+  font-size: 1.35rem;
+}
+.layout-bp-ruler {
+  position: relative;
+  display: flex;
+  height: 54px;
+  margin-top: 22px;
+}
+.layout-bp-segment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  padding: 5px 7px;
+  border-left: 2px solid var(--color-surface);
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  overflow: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+.layout-bp-segment:first-child {
+  border-left: 0;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+.layout-bp-segment:last-child {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.layout-bp-segment.is-active {
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.layout-bp-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+.layout-bp-marker {
+  position: absolute;
+  top: -20px;
+  bottom: -6px;
+  border-left: 3px solid var(--color-danger);
+  transform: translateX(-1.5px);
+  transition: left 120ms ease;
+}
+.layout-bp-marker span {
+  position: absolute;
+  top: -4px;
+  left: 0;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: var(--color-surface);
+  font-size: 0.68rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+/* ---- Card grid: mobile-first media queries (min-width) ---- */
+.layout-bp-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* xs: one column */
+  gap: 10px;
+}
+.layout-bp-card {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+
+/* "Show from this breakpoint up" helpers – hidden until their media query matches */
+.layout-bp-up-sm,
+.layout-bp-up-md,
+.layout-bp-up-lg,
+.layout-bp-up-xl {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  /* sm */
+  .layout-bp-grid { grid-template-columns: repeat(2, 1fr); }
+  .layout-bp-up-sm { display: inline-flex; }
+}
+@media (min-width: 900px) {
+  /* md */
+  .layout-bp-grid { grid-template-columns: repeat(3, 1fr); }
+  .layout-bp-up-md { display: inline-flex; }
+}
+@media (min-width: 1200px) {
+  /* lg */
+  .layout-bp-grid { grid-template-columns: repeat(4, 1fr); }
+  .layout-bp-up-lg { display: inline-flex; }
+}
+@media (min-width: 1536px) {
+  /* xl */
+  .layout-bp-grid { grid-template-columns: repeat(6, 1fr); }
+  .layout-bp-up-xl { display: inline-flex; }
+}

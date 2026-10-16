@@ -1,0 +1,136 @@
+/* ---------- Thumbnail grid ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-surface-2);
+  cursor: zoom-in;
+}
+.thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform 300ms ease;
+}
+.thumb:hover img,
+.thumb:focus-visible img {
+  transform: scale(1.06);
+}
+.thumbIcon {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.thumb:hover .thumbIcon,
+.thumb:focus-visible .thumbIcon {
+  opacity: 1;
+}
+
+/* ---------- Lightbox ----------
+   A photo viewer is dark in BOTH themes on purpose: photos look best on black. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(0 0 0 / 0.88);
+  animation: fadeIn 200ms ease-out;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+.dialog {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  max-width: min(1100px, 100%);
+  outline: none;
+}
+.figure {
+  margin: 0;
+  min-width: 0;
+}
+.large {
+  display: block;
+  max-width: 100%;
+  max-height: 78vh;
+  margin: 0 auto;
+  border-radius: var(--radius);
+  object-fit: contain;
+}
+.caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  color: #f1f3f8;
+  font-size: 0.9rem;
+}
+
+.navButton {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.12);
+  color: #fff;
+  cursor: pointer;
+}
+.navButton:hover {
+  background: rgb(255 255 255 / 0.25);
+}
+.navButton:focus-visible {
+  outline: 2px solid #fff;
+}
+.close {
+  position: absolute;
+  top: -52px;
+  right: 0;
+}
+
+/* On phones the arrows sit on top of the photo */
+@media (max-width: 640px) {
+  .prev,
+  .next {
+    position: absolute;
+    top: 40%;
+    z-index: 1;
+  }
+  .prev {
+    left: 4px;
+  }
+  .next {
+    right: 4px;
+  }
+}

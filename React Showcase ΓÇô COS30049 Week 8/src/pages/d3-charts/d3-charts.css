@@ -1,0 +1,396 @@
+/* Styles used only by the Interactive Charts page (every class starts with "d3c-").
+   Colours always come from CSS variables, so both themes work without redrawing.
+   Series colours are passed in as a custom property: .style('--series', 'var(--chart-3)') */
+
+/* ---- Tooltip (positioned by ChartTooltip.jsx with a transform) ---------- */
+.d3c-tooltip {
+  top: 0;
+  left: 0;
+}
+/* Row = key + label + value: the label is quieter, the value (pushed right) is the strongest */
+.d3c-tooltip-label {
+  color: var(--color-text-muted);
+}
+.d3c-tooltip .viz-tooltip-row strong {
+  margin-left: auto;
+  padding-left: 12px;
+  white-space: nowrap;
+}
+.d3c-tooltip-active .d3c-tooltip-label {
+  color: var(--color-text);
+  font-weight: 650;
+}
+
+/* ---- Marks --------------------------------------------------------------- */
+.d3c-line {
+  fill: none;
+  stroke: var(--series, var(--chart-1));
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  transition: stroke 200ms ease;
+}
+.d3c-line-thin {
+  stroke-width: 1.25;
+}
+.d3c-area {
+  fill: var(--series, var(--chart-1));
+  fill-opacity: 0.1;
+}
+.d3c-bar,
+.d3c-layer {
+  fill: var(--series, var(--chart-1));
+  transition: opacity 200ms ease, fill 200ms ease;
+}
+.d3c-layer {
+  stroke: var(--color-surface); /* 2px surface gap between touching layers */
+  stroke-width: 2;
+}
+.d3c-layer.is-off {
+  stroke: none; /* a hidden (flat) layer would otherwise still draw its 2px outline */
+}
+.d3c-marker {
+  fill: var(--series, var(--chart-1));
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.d3c-dot {
+  stroke: var(--color-surface);
+  stroke-width: 1.5;
+  transition: opacity 200ms ease;
+}
+.d3c-ring {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.d3c-crosshair {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+  shape-rendering: crispEdges;
+  pointer-events: none;
+}
+.d3c-rule {
+  stroke: var(--color-text-muted);
+  stroke-width: 1.5;
+  shape-rendering: crispEdges;
+}
+.d3c-trend {
+  stroke: var(--color-text);
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.d3c-leader {
+  fill: none;
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.d3c-dimmed {
+  opacity: 0.18;
+}
+/* A surface-coloured box behind a label, so lines behind it (e.g. the beeswarm's pass mark) stop at the text */
+.d3c-label-bg {
+  fill: var(--color-surface);
+}
+/* Text on top of marks gets a halo in the surface colour so it stays readable */
+.d3c-halo {
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+
+/* Hover-to-emphasise: faded series turn grey, their labels quiet down */
+.d3c-series.is-faded .d3c-line {
+  stroke: var(--color-border-strong);
+}
+.d3c-series.is-faded text {
+  fill: var(--color-text-subtle);
+}
+.d3c-layer.is-faded,
+.d3c-bar.is-faded {
+  opacity: 0.3;
+}
+
+/* Exam bands (focus + context) */
+.d3c-band rect {
+  fill: var(--color-text);
+  fill-opacity: 0.07;
+}
+.d3c-band text {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+/* Invisible rectangles that catch the pointer for zoom / hover */
+.d3c-overlay {
+  fill: none;
+  pointer-events: all;
+}
+/* Crosshair charts: a sideways finger drag moves the crosshair, an up/down swipe still scrolls the page */
+.d3c-scrub {
+  touch-action: pan-y;
+}
+/* Zoomable charts (see pageFriendlyZoom in chartKit.js): one finger scrolls the PAGE, and the browser's
+   own pinch-zoom is off, so two-finger gestures reach d3.zoom. It must sit on the <svg> itself. */
+.d3c-zoomable {
+  touch-action: pan-x pan-y;
+}
+.d3c-pan {
+  cursor: grab;
+}
+.d3c-pan:active {
+  cursor: grabbing;
+}
+
+/* d3.brush draws .selection and .handle rects – CSS beats its default attributes */
+.d3c-brush .selection {
+  fill: var(--color-primary);
+  fill-opacity: 0.14;
+  stroke: var(--color-primary);
+  stroke-width: 1;
+}
+.d3c-brush .overlay {
+  cursor: crosshair;
+}
+
+/* Axis whose tick lines double as gridlines (bar chart race, bars) */
+.d3c-axis-grid .tick line {
+  stroke: var(--chart-grid);
+}
+.d3c-axis-grid .domain {
+  display: none;
+}
+
+/* Big label that shows the year in the race */
+.d3c-year {
+  fill: var(--color-text-subtle);
+  font-size: 48px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  text-anchor: end;
+}
+.d3c-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Heatmap cells (calendar + radial): hover / keyboard focus shows an outline */
+.d3c-cell {
+  cursor: pointer;
+  outline: none;
+}
+.d3c-arc {
+  stroke: var(--color-surface); /* the surface gap between neighbouring arcs */
+  stroke-width: 1.5;
+}
+.d3c-cell:hover,
+.d3c-cell:focus-visible,
+.d3c-cell.is-active {
+  stroke: var(--color-text);
+  stroke-width: 2;
+}
+.d3c-radial-peak {
+  fill: var(--color-text);
+  font-size: 18px;
+  font-weight: 650;
+  text-anchor: middle;
+}
+.d3c-radial-caption {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  text-anchor: middle;
+}
+
+/* Clickable bars (cross-filter) */
+.d3c-clickable {
+  cursor: pointer;
+  outline: none;
+}
+.d3c-clickable:focus-visible .d3c-bar {
+  stroke: var(--color-text);
+  stroke-width: 2;
+}
+
+/* ---- Controls & layout ----------------------------------------------- */
+/* "How do I use this chart?" line at the end of the controls row */
+.d3c-hint {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+.d3c-search {
+  width: 170px;
+  height: 32px;
+}
+.d3c-slider {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--color-text-muted);
+}
+.d3c-slider input[type='range'] {
+  width: min(220px, 40vw);
+  accent-color: var(--color-primary);
+}
+.d3c-slider output {
+  min-width: 2.6em;
+  color: var(--color-text);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+/* Play / Pause / Replay share one width (wide enough for the longest label) */
+.d3c-play {
+  min-width: 7.2em;
+}
+.d3c-control-label {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+}
+.d3c-dot-key {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+/* Size key: outlined reference circles drawn with the chart's own radius scale */
+.d3c-size-key {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+.d3c-size-key circle {
+  fill: none;
+  stroke: var(--color-text-muted);
+  stroke-width: 1;
+}
+.d3c-center {
+  display: flex;
+  justify-content: center;
+}
+
+/* Collapsible data table under a chart */
+.d3c-details {
+  margin-top: 10px;
+}
+.d3c-details summary {
+  width: fit-content;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.d3c-details summary:hover {
+  color: var(--color-text);
+}
+.d3c-details .table-wrap {
+  max-height: 320px;
+  margin-top: 8px;
+  overflow: auto;
+}
+
+/* Stat tiles (calendar summary + dashboard KPIs) */
+.d3c-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 10px;
+  margin: 0 0 14px;
+}
+.d3c-stats-below {
+  margin: 14px 0 0;
+}
+.d3c-stat {
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.d3c-stat dt {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.d3c-stat dd {
+  margin: 2px 0 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+.d3c-stat small {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+
+/* Cross-filter dashboard */
+.d3c-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 10px 14px;
+  margin-bottom: 10px;
+}
+.d3c-filters .field {
+  min-width: 140px;
+  flex: 1 1 140px;
+}
+.d3c-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 30px;
+  margin-bottom: 12px;
+}
+.d3c-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px 3px 10px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-full);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+.d3c-chip:hover {
+  background: color-mix(in srgb, var(--color-primary) 20%, var(--color-surface));
+}
+.d3c-dash {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.d3c-dash > figure {
+  min-width: 0;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.d3c-dash figcaption {
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.d3c-dash figcaption small {
+  display: block;
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+@media (max-width: 760px) {
+  .d3c-dash {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .d3c-year {
+    font-size: 34px;
+  }
+  .d3c-radial-peak {
+    font-size: 14px;
+  }
+}

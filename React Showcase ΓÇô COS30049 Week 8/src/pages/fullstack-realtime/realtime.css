@@ -1,0 +1,446 @@
+/* realtime.css – styles for the "Files, Jobs & Real-time" page.
+   Every class starts with "rt-" because all CSS is global once it is loaded. */
+
+/* ---------- connection status pill ---------- */
+.rt-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.5;
+  white-space: nowrap;
+}
+.rt-pill-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  flex-shrink: 0;
+}
+.rt-pill-detail {
+  font-weight: 500;
+  opacity: 0.85;
+}
+.rt-pill-open {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+.rt-pill-connecting,
+.rt-pill-reconnecting {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+.rt-pill-connecting .rt-pill-dot,
+.rt-pill-reconnecting .rt-pill-dot {
+  animation: rt-pulse 1s ease-in-out infinite;
+}
+.rt-pill-closed {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+@keyframes rt-pulse {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+/* ---------- progress bar (uploads + jobs) ---------- */
+.rt-progress {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  overflow: hidden;
+}
+.rt-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width 200ms ease;
+}
+.rt-progress.is-done > span { background: var(--color-success); }
+.rt-progress.is-error > span { background: var(--color-danger); }
+.rt-progress.is-muted > span { background: var(--color-text-subtle); }
+
+/* ---------- 1. upload ---------- */
+.rt-dropzone {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 28px 16px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  text-align: center;
+  transition: border-color var(--transition), background var(--transition);
+}
+.rt-dropzone p {
+  margin: 0;
+}
+.rt-dropzone.is-dragging {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+/* the real <input type="file"> is visually hidden – show its focus on the label instead */
+.rt-dropzone input:focus-visible + label,
+.rt-file-pick input:focus-visible + label {
+  box-shadow: var(--focus-ring);
+}
+.rt-samples {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.rt-uploads {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.rt-upload {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.rt-file-name {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 600;
+}
+.rt-upload-status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 30px;
+  font-size: 0.85rem;
+}
+.rt-upload .rt-upload-status > span {
+  min-width: 0;
+}
+.rt-files td {
+  white-space: normal;
+  vertical-align: middle;
+}
+.rt-files-name {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.rt-files-meta {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+.rt-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+}
+.rt-actions .btn-icon {
+  width: 32px;
+  height: 32px;
+}
+
+/* ---------- 2. CSV analysis ---------- */
+.rt-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 10px;
+}
+.rt-stat {
+  padding: 10px 14px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.rt-stat strong {
+  display: block;
+  font-size: 1.35rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.3;
+}
+.rt-stat span {
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+.rt-hist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 12px;
+}
+.rt-hist-card {
+  margin: 0;
+  padding: 12px 12px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.rt-hist-card figcaption {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+.rt-hist svg:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.rt-hist-readout {
+  margin: 2px 0 0;
+  min-height: 1.5em;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.rt-hist-readout strong {
+  color: var(--color-text);
+}
+
+/* ---------- 3. jobs ---------- */
+.rt-jobs {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+.rt-job {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.rt-job-log {
+  height: 116px;
+  max-height: none;
+  padding: 8px 10px;
+  font-size: 0.74rem;
+  line-height: 1.5;
+}
+.rt-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+.rt-note strong {
+  color: var(--color-text);
+}
+
+/* ---------- 4. live training ---------- */
+.rt-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px 16px;
+}
+.rt-controls .field {
+  min-width: 150px;
+}
+.rt-train-charts {
+  display: grid; /* the number of columns is set in TrainingCharts.jsx from the measured width */
+  gap: 16px;
+}
+.rt-chart {
+  margin: 0;
+  min-width: 0;
+}
+.rt-chart figcaption {
+  margin-bottom: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.rt-line {
+  fill: none;
+  stroke-width: 2px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.rt-dot {
+  stroke: var(--color-surface);
+  stroke-width: 2px;
+}
+.rt-crosshair {
+  stroke: var(--chart-axis);
+  stroke-width: 1px;
+}
+.rt-empty-label {
+  fill: var(--color-text-subtle);
+  font-size: 12px;
+}
+
+/* ---------- 5. chat ---------- */
+.rt-chat {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.rt-chat-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+.rt-chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  height: 260px;
+  margin: 0;
+  padding: 12px;
+  overflow-y: auto;
+  list-style: none;
+}
+.rt-msg {
+  align-self: flex-start;
+  max-width: min(80%, 460px);
+  padding: 6px 12px 8px;
+  border-radius: 14px 14px 14px 4px;
+  background: var(--color-surface-2);
+  overflow-wrap: anywhere;
+}
+.rt-msg.is-mine {
+  align-self: flex-end;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--color-primary-soft);
+}
+.rt-msg-meta {
+  display: block;
+  font-size: 0.74rem;
+  color: var(--color-text-muted);
+}
+.rt-notice {
+  align-self: center;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-align: center;
+}
+.rt-notice.is-error {
+  color: var(--color-danger);
+}
+.rt-chat-form {
+  display: flex;
+  gap: 8px;
+  padding: 10px 12px;
+  border-top: 1px solid var(--color-border);
+}
+.rt-chat-form .input {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ---------- 6. server-sent events ---------- */
+.rt-feed {
+  display: flex;
+  flex-direction: column;
+  height: 300px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.rt-feed li {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--color-border);
+  font-size: 0.88rem;
+  animation: rt-slide-in 300ms ease-out;
+}
+.rt-feed li.rt-feed-notice {
+  display: block;
+  background: var(--color-info-soft);
+  color: var(--color-info);
+  font-size: 0.8rem;
+}
+.rt-feed-meta {
+  color: var(--color-text-subtle);
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.rt-feed-empty {
+  padding: 16px;
+  color: var(--color-text-muted);
+}
+@keyframes rt-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+.rt-beat {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  animation: rt-beat 600ms ease-out;
+}
+@keyframes rt-beat {
+  from {
+    transform: scale(1.8);
+  }
+}
+@media (max-width: 520px) {
+  .rt-feed li {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .rt-feed li .rt-feed-meta {
+    grid-column: 2;
+  }
+}
+
+.rt-break {
+  overflow-wrap: anywhere; /* a long command or URL may wrap anywhere on a phone */
+}
+
+/* ---------- 7. comparison ---------- */
+.rt-compare {
+  table-layout: fixed; /* three equally wide technique columns */
+  min-width: 640px; /* narrower screens scroll inside .table-wrap */
+}
+.rt-compare th:first-child {
+  width: 130px;
+}
+.rt-compare td,
+.rt-compare th {
+  white-space: normal;
+  vertical-align: top;
+  overflow-wrap: anywhere; /* a long API name must wrap, not run into the next column */
+}
+.rt-compare .is-pick {
+  background: var(--color-primary-soft);
+}
+.rt-compare thead th.is-pick {
+  color: var(--color-primary);
+}

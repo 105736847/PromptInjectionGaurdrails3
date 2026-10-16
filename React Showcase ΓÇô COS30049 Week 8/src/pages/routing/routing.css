@@ -1,0 +1,278 @@
+/* Styles used only by the React Router page (all classes start with "routing-") */
+
+.routing-route-table {
+  margin-bottom: 20px;
+}
+
+.routing-compare {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.routing-compare a {
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* ---- The mini browser window ------------------------------------------- */
+.routing-browser {
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  background: var(--color-surface);
+}
+.routing-browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 8px 10px;
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+}
+.routing-browser-bar .btn-icon {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+.routing-dots {
+  display: flex;
+  gap: 6px;
+  margin-right: 6px;
+}
+.routing-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+}
+.routing-address {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  color: var(--color-text-subtle);
+}
+.routing-address:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: var(--focus-ring);
+}
+.routing-address input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+.routing-bookmarks {
+  display: flex;
+  gap: 4px;
+  padding: 6px 10px;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+.routing-bookmarks a {
+  flex-shrink: 0;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.routing-bookmarks a:hover {
+  background: var(--color-surface-3);
+  color: var(--color-text);
+}
+.routing-viewport {
+  min-height: 360px;
+  padding: 16px;
+}
+
+/* ---- Inside the portal ----------------------------------------------------- */
+.routing-portal {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.routing-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+.routing-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.routing-tab:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+.routing-tab.active {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+.routing-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.82rem;
+}
+.routing-crumbs li + li::before {
+  content: '›';
+  margin-right: 4px;
+  color: var(--color-text-subtle);
+}
+.routing-crumbs [aria-current='page'] {
+  color: var(--color-text-muted);
+}
+.routing-filters {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 8px;
+}
+.routing-jump-input {
+  width: 72px;
+  height: 30px;
+  padding: 0 8px;
+}
+.routing-login-input {
+  width: auto;
+  flex: 1 1 180px;
+}
+.routing-student-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 6px;
+  max-height: 260px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+.routing-student-list a {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 8px;
+  padding: 7px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.routing-student-list a:hover {
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+.routing-student-list .small {
+  flex-basis: 100%;
+  padding-left: 30px;
+}
+.routing-number {
+  min-width: 22px;
+  color: var(--color-text-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.routing-facts {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 16px;
+  margin: 0;
+  font-size: 0.9rem;
+}
+.routing-facts dt {
+  color: var(--color-text-muted);
+}
+.routing-facts dd {
+  margin: 0;
+}
+.routing-empty {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 32px 12px;
+  text-align: center;
+  color: var(--color-text-muted);
+}
+.routing-link-list {
+  margin: 0;
+  padding-left: 1.2em;
+}
+.routing-steps {
+  margin: 0;
+  padding-left: 1.3em;
+  font-size: 0.92rem;
+}
+.routing-steps li + li {
+  margin-top: 4px;
+}
+
+/* ---- NavLink demo ---------------------------------------------------------- */
+.routing-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.routing-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 12px;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+.routing-pill:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-subtle);
+}
+.routing-pill.active {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.routing-inspector td {
+  white-space: normal;
+  word-break: break-all;
+}
+
+@media (max-width: 640px) {
+  .routing-dots {
+    display: none;
+  }
+  .routing-filters {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .routing-viewport {
+    padding: 12px;
+  }
+}

@@ -1,0 +1,77 @@
+/* ---- Status pill: one base class + one modifier per status ---- */
+.styling-pill {
+  align-self: flex-start;
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  text-transform: capitalize;
+  transition: background var(--transition), color var(--transition), padding var(--transition);
+}
+.styling-pill-active { background: var(--color-success-soft); color: var(--color-success); }
+.styling-pill-at-risk { background: var(--color-warning-soft); color: var(--color-warning); }
+.styling-pill-withdrawn { background: var(--color-danger-soft); color: var(--color-danger); }
+.styling-pill-graduated { background: var(--color-primary-soft); color: var(--color-primary); }
+.styling-pill.is-compact {
+  padding: 1px 8px;
+  font-size: 0.78rem;
+}
+
+/* ---- Selectable unit cards: state classes start with "is-" ---- */
+.styling-units {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 190px), 1fr));
+  gap: 12px;
+}
+.styling-unit {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 14px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--transition), background var(--transition), transform var(--transition);
+}
+.styling-unit:hover {
+  border-color: var(--color-primary);
+}
+.styling-unit.is-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+.styling-unit.is-full {
+  opacity: 0.55;
+  cursor: not-allowed;
+  border-style: dashed;
+}
+.styling-unit-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border-strong);
+  color: transparent;
+}
+.styling-unit.is-selected .styling-unit-icon {
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.styling-unit.is-full .styling-unit-icon {
+  color: var(--color-text-muted);
+}
+.styling-unit-class {
+  margin-top: 8px;
+  font-size: 0.68rem;
+  word-break: break-all;
+}

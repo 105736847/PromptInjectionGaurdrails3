@@ -1,0 +1,82 @@
+.styling-fx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+  gap: 12px;
+}
+.styling-fx-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  text-align: center;
+}
+.styling-fx-stage {
+  display: grid;
+  place-items: center;
+  height: 130px;
+  overflow: hidden;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+
+/* One transition declaration, fed by the variables React sets */
+.styling-fx-box {
+  display: grid;
+  place-items: center;
+  width: 90px;
+  height: 90px;
+  border-radius: var(--radius);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+  transition-property: opacity, transform;
+  transition-duration: var(--duration);
+  transition-timing-function: var(--easing);
+}
+
+/* "Off" state for each effect … */
+.styling-fx-fade { opacity: 0; }
+.styling-fx-slide { opacity: 0; transform: translateX(-120%); }
+.styling-fx-scale { transform: scale(0) rotate(-90deg); }
+
+/* … and the "on" state they all transition to */
+.styling-fx-box.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+/* 3D card flip */
+.styling-flip {
+  width: 140px;
+  height: 100px;
+  perspective: 600px; /* how far away the viewer is – gives the 3D depth */
+}
+.styling-flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform var(--duration) var(--easing);
+}
+.styling-flip.is-flipped .styling-flip-inner {
+  transform: rotateY(180deg);
+}
+.styling-flip-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 8px;
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  border: 2px solid var(--color-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  backface-visibility: hidden; /* hide the face when it points away from us */
+}
+.styling-flip-back {
+  transform: rotateY(180deg);
+  background: var(--color-success-soft);
+  border-color: var(--color-success);
+  color: var(--color-success);
+}

@@ -1,0 +1,36 @@
+.dialog {
+  width: min(440px, calc(100% - 32px));
+  padding: 0; /* padding goes on the inner form, so clicks on the dialog itself = backdrop */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-lg);
+}
+/* The browser draws the backdrop; we only style it */
+.dialog::backdrop {
+  background: rgb(10 12 18 / 0.55);
+}
+.dialog[open] {
+  animation: popIn 180ms ease-out;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 22px;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}

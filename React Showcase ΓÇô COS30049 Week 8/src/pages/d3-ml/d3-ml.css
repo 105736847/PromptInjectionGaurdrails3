@@ -1,0 +1,632 @@
+/* Styles used only by the "Visualising ML Results" page (all classes start with "d3ml-").
+   Colours always come from the theme tokens in index.css, so both themes just work. */
+
+/* ---- Figures ------------------------------------------------------------- */
+.d3ml-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  min-width: 0; /* lets the figure shrink inside grid/flex parents */
+}
+.d3ml-figure-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.d3ml-figure-note {
+  font-weight: 400;
+  color: var(--color-text-muted);
+}
+.d3ml-figure .viz-legend {
+  margin: 0; /* the figure's flex gap already spaces it */
+}
+/* A surface-coloured halo: a direct label stays readable where it crosses bars or lines */
+.d3ml-halo {
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.d3ml-baseline {
+  stroke: var(--chart-axis);
+  shape-rendering: crispEdges;
+}
+.d3ml-reference {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+
+/* ---- Threshold explorer -------------------------------------------------- */
+.d3ml-linked-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px 24px;
+}
+.d3ml-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 200px;
+  flex: 1 1 200px;
+  max-width: 320px;
+}
+.d3ml-slider input {
+  width: 100%;
+  accent-color: var(--color-primary);
+}
+.d3ml-drag-surface {
+  fill: transparent;
+  cursor: ew-resize;
+}
+.d3ml-handle {
+  cursor: ew-resize;
+  outline: none;
+}
+.d3ml-handle line {
+  stroke: var(--color-text);
+  stroke-width: 2;
+}
+.d3ml-handle rect {
+  fill: var(--color-text);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+.d3ml-handle text {
+  fill: var(--color-surface);
+  font-size: 11px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  pointer-events: none;
+}
+.d3ml-handle:focus-visible rect {
+  stroke: var(--color-primary);
+  stroke-width: 3;
+}
+.d3ml-operating line {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.d3ml-point {
+  fill: var(--color-text);
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  transition: transform 90ms linear;
+  pointer-events: none;
+}
+.d3ml-ghost {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 1.5;
+  pointer-events: none;
+}
+.d3ml-cell {
+  cursor: default;
+  outline: none;
+}
+.d3ml-cell rect.is-active,
+.d3ml-cell:focus-visible rect {
+  stroke: var(--color-text);
+  stroke-width: 2;
+}
+.d3ml-cell-note {
+  min-height: 2.6em;
+}
+
+/* Stat tiles */
+.d3ml-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.d3ml-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.d3ml-tile-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+.d3ml-tile-value {
+  font-size: 1.6rem;
+  font-weight: 650;
+  line-height: 1.1;
+}
+.d3ml-meter {
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  overflow: hidden;
+}
+.d3ml-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-text-subtle); /* neutral: in this demo blue already means "legitimate" */
+  transition: width 120ms linear;
+}
+.d3ml-delta {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  color: var(--color-text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+.d3ml-delta.is-good {
+  color: var(--color-success);
+}
+.d3ml-delta.is-bad {
+  color: var(--color-danger);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .d3ml-point,
+  .d3ml-meter span {
+    transition: none;
+  }
+}
+
+/* ---- Shared bits ---------------------------------------------------------- */
+.d3ml-split {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px 28px;
+}
+.d3ml-split > .viz {
+  flex: 1 1 380px;
+  min-width: 0;
+  width: auto;
+}
+.d3ml-split > aside,
+.d3ml-split > section {
+  flex: 1 1 240px;
+  min-width: 0;
+}
+.d3ml-ramp {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+.d3ml-ramp-bar {
+  width: 120px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(to right, var(--seq-1), var(--seq-2), var(--seq-3), var(--seq-4), var(--seq-5), var(--seq-6), var(--seq-7));
+}
+.d3ml-ramp-bar.is-short {
+  width: 90px;
+  background: linear-gradient(to right, var(--seq-3), var(--seq-4), var(--seq-5), var(--seq-6), var(--seq-7));
+}
+.d3ml-frame {
+  fill: none;
+  stroke: var(--chart-axis);
+  pointer-events: none;
+}
+.d3ml-table-scroll {
+  max-height: 280px;
+  overflow: auto;
+}
+.d3ml-url-cell {
+  word-break: break-all;
+}
+.d3ml-dot,
+.d3ml-marker,
+.d3ml-head {
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+.d3ml-dot {
+  transition: r 120ms;
+}
+
+/* ---- Multi-class confusion matrix ------------------------------------------ */
+.d3ml-mc-cell {
+  cursor: pointer;
+  outline: none;
+  transition: opacity 150ms;
+}
+.d3ml-mc-cell text {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  pointer-events: none;
+}
+.d3ml-mc-cell.is-dim {
+  opacity: 0.3;
+}
+.d3ml-mc-cell.is-selected rect,
+.d3ml-mc-cell:focus-visible rect {
+  stroke: var(--color-text);
+  stroke-width: 2.5;
+}
+.d3ml-mc-row.is-active,
+.d3ml-mc-col.is-active {
+  font-weight: 700;
+}
+.d3ml-examples h4 {
+  font-size: 0.95rem;
+}
+.d3ml-url-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 0.8rem;
+  word-break: break-all;
+}
+.d3ml-url-list li + li {
+  margin-top: 4px;
+}
+
+/* ---- Training curves ------------------------------------------------------ */
+.d3ml-line {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.d3ml-line.is-val {
+  stroke-width: 2;
+}
+.d3ml-line.is-train {
+  stroke-width: 1.5;
+  stroke-opacity: 0.4;
+}
+.d3ml-marker-label {
+  paint-order: stroke; /* surface-coloured halo: readable where a line crosses the text */
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+}
+.d3ml-crosshair line {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.d3ml-crosshair circle {
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+.d3ml-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.d3ml-live-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-danger);
+  animation: d3ml-pulse 1s ease-in-out infinite;
+}
+@keyframes d3ml-pulse {
+  50% { opacity: 0.3; }
+}
+
+/* ---- Feature importance + waterfall --------------------------------------- */
+.d3ml-fi-bar,
+.d3ml-wf-bar {
+  fill: var(--color-text-subtle); /* neutral: a size without a direction (red/blue = direction) */
+  transition: fill 300ms;
+}
+.d3ml-fi-bar.is-positive,
+.d3ml-wf-bar.is-positive {
+  fill: var(--div-pos);
+}
+.d3ml-fi-bar.is-negative,
+.d3ml-wf-bar.is-negative {
+  fill: var(--div-neg);
+}
+.d3ml-wf-bar.is-base,
+.d3ml-wf-bar.is-final {
+  fill: var(--color-text-subtle);
+}
+.d3ml-fi-value,
+.d3ml-wf-value {
+  font-variant-numeric: tabular-nums;
+}
+.d3ml-wf-row,
+.d3ml-fi-row {
+  cursor: default;
+  outline: none; /* the focus ring is drawn on the hit rect below */
+}
+.d3ml-wf-hit,
+.d3ml-fi-hit {
+  fill: transparent; /* invisible, but still catches the pointer */
+}
+.d3ml-wf-row.is-active .d3ml-wf-hit,
+.d3ml-fi-row.is-active .d3ml-fi-hit {
+  fill: var(--color-text);
+  fill-opacity: 0.06;
+}
+.d3ml-wf-row:focus-visible .d3ml-wf-hit,
+.d3ml-fi-row:focus-visible .d3ml-fi-hit {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+.d3ml-wf-row.is-active .d3ml-wf-bar,
+.d3ml-fi-row.is-active .d3ml-fi-bar {
+  opacity: 0.8;
+}
+.d3ml-connector {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.d3ml-prediction {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+}
+.d3ml-url {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+.d3ml-prediction .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* ---- Embedding explorer --------------------------------------------------- */
+.d3ml-emb {
+  touch-action: pan-y; /* one finger scrolls the page; two fingers pinch/pan (see zoom.filter) */
+}
+.d3ml-emb.is-zoom {
+  cursor: grab;
+}
+.d3ml-emb.is-zoom:active {
+  cursor: grabbing;
+}
+.d3ml-emb-point {
+  stroke: var(--color-surface);
+  stroke-width: 1;
+  transition: opacity 200ms;
+}
+.d3ml-emb-point.is-wrong {
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+.d3ml-emb-point.is-dim {
+  opacity: 0.12;
+}
+.d3ml-emb-label {
+  font-weight: 600;
+  paint-order: stroke;
+  stroke: var(--color-surface);
+  stroke-width: 4px;
+  stroke-linejoin: round;
+  pointer-events: none;
+}
+.d3ml-hidden {
+  display: none;
+}
+.d3ml-emb .selection {
+  fill: var(--color-primary);
+  fill-opacity: 0.12;
+  stroke: var(--color-primary);
+}
+/* Tooltip titles stay on ONE line (the ellipsis is only a safety net – keep titles short) */
+.d3ml-tooltip-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.d3ml-tooltip-url {
+  margin-bottom: 4px;
+  color: var(--color-text-muted);
+  word-break: break-all;
+}
+/* TooltipRow: key + label + value – the value is right-aligned and the strongest thing in the row */
+.d3ml-tip-label {
+  color: var(--color-text-muted);
+}
+.d3ml-tip-value {
+  margin-left: auto;
+  padding-left: 12px;
+  color: var(--color-text);
+  font-weight: 650;
+}
+/* <details><summary>Show data table</summary> under a chart (closed by default) */
+.d3ml-details summary {
+  width: fit-content;
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+.d3ml-details[open] summary {
+  margin-bottom: 8px;
+}
+.d3ml-row-current > * {
+  background: var(--color-primary-soft);
+  font-weight: 600;
+}
+.d3ml-details caption {
+  caption-side: top;
+  text-align: left;
+}
+
+/* ---- Decision boundary ---------------------------------------------------- */
+.d3ml-playground {
+  flex: 0 1 420px;
+}
+.d3ml-boundary {
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.d3ml-toy-point {
+  stroke: var(--color-surface);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.d3ml-playground svg {
+  outline: none; /* the keyboard cursor below is the focus indicator */
+}
+.d3ml-cursor {
+  display: none;
+  fill: none;
+  stroke: var(--color-text);
+  stroke-width: 2;
+  pointer-events: none;
+}
+.d3ml-playground svg:focus-visible .d3ml-cursor {
+  display: inline;
+}
+.d3ml-playground svg:focus-visible .d3ml-frame {
+  stroke: var(--color-primary);
+  stroke-width: 2;
+}
+.d3ml-select {
+  width: auto;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.d3ml-add-class {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin: 0;
+  padding: 8px 12px;
+}
+.d3ml-add-class .check {
+  align-items: center;
+}
+.d3ml-add-class p {
+  flex-basis: 100%; /* the hint gets a line of its own under the radios + button */
+}
+.d3ml-readout {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 0;
+}
+.d3ml-readout div {
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.d3ml-readout dt {
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+.d3ml-readout dd {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+.d3ml-spark-dot {
+  fill: var(--color-text-muted); /* neutral: blue already means "class A" in this demo */
+  stroke: var(--color-surface);
+  stroke-width: 2;
+}
+
+/* ---- Parallel coordinates ------------------------------------------------- */
+.d3ml-pc-line {
+  fill: none;
+  stroke-linejoin: round;
+  opacity: 0.9;
+  transition: opacity 150ms;
+  pointer-events: none;
+}
+.d3ml-pc-line.is-out {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  opacity: 1;
+}
+.d3ml-pc-line.is-faded {
+  opacity: 0.25;
+}
+.d3ml-pc-hit {
+  fill: none;
+  stroke: transparent;
+  stroke-width: 10;
+}
+.d3ml-pc .viz-axis text {
+  paint-order: stroke; /* a surface-coloured halo keeps ticks readable over the lines */
+  stroke: var(--color-surface);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+}
+.d3ml-pc-title {
+  font-weight: 600;
+  cursor: ew-resize;
+  outline: none;
+  touch-action: none;
+  user-select: none;
+}
+.d3ml-pc-title:focus-visible {
+  fill: var(--color-primary);
+  text-decoration: underline;
+}
+.d3ml-pc .brush .selection {
+  fill: var(--color-primary);
+  fill-opacity: 0.15;
+  stroke: var(--color-primary);
+}
+
+/* ---- FastAPI card + checklist --------------------------------------------- */
+.d3ml-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+}
+.d3ml-flow li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.d3ml-flow-icon {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+.d3ml-checklist {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+}
+.d3ml-checklist div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  gap: 4px 16px;
+}
+.d3ml-checklist dt {
+  font-weight: 600;
+}
+.d3ml-checklist dd {
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .d3ml-checklist div {
+    grid-template-columns: 1fr;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .d3ml-live-dot {
+    animation: none;
+  }
+}

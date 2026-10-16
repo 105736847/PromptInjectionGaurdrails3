@@ -1,0 +1,40 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 18px;
+}
+
+.swatch {
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--color-border-strong);
+  cursor: pointer;
+}
+.swatch[aria-pressed='true'] {
+  box-shadow: 0 0 0 2px var(--color-text);
+}
+.picker {
+  width: 32px;
+  height: 30px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  /* A dotted "paper" pattern drawn by CSS – it is NOT part of the drawing or the PNG */
+  background-color: var(--color-surface);
+  background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1px);
+  background-size: 20px 20px;
+  /* Stop touch screens from scrolling/zooming the page while drawing */
+  touch-action: none;
+}

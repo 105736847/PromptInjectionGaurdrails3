@@ -1,0 +1,43 @@
+.list {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.item + .item {
+  border-top: 1px solid var(--color-border);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none; /* hide the default triangle… */
+}
+.summary::-webkit-details-marker {
+  display: none; /* …also in Safari */
+}
+/* …and draw our own "+" that turns into "–" when open */
+.summary::after {
+  content: '+';
+  flex-shrink: 0;
+  font-size: 1.2rem;
+  line-height: 1;
+  color: var(--color-primary);
+}
+.item[open] > .summary::after {
+  content: '–';
+}
+.summary:hover {
+  background: var(--color-surface-2);
+}
+
+.answer {
+  margin: 0;
+  padding: 0 16px 14px;
+  color: var(--color-text-muted);
+}

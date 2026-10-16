@@ -1,0 +1,50 @@
+/* 1. Make the wrapper a size container, so children can ask "how wide is my container?" */
+.layout-areas-container {
+  container-type: inline-size;
+  max-width: 100%;
+  transition: width 200ms ease;
+}
+
+/* 2. The page grid. The values come from React as CSS custom properties. */
+.layout-areas {
+  display: grid;
+  grid-template-columns: var(--columns);
+  grid-template-areas: var(--areas);
+  grid-auto-rows: minmax(56px, auto);
+  gap: 8px;
+  min-height: 300px;
+  padding: 8px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+}
+
+/* 3. Each region only says WHICH area it goes in */
+.layout-areas-header  { grid-area: header;  --item-color: var(--chart-1); }
+.layout-areas-sidebar { grid-area: sidebar; --item-color: var(--chart-2); }
+.layout-areas-main    { grid-area: main;    --item-color: var(--chart-3); min-height: 120px; }
+.layout-areas-aside   { grid-area: aside;   --item-color: var(--chart-4); }
+.layout-areas-footer  { grid-area: footer;  --item-color: var(--chart-5); }
+
+.layout-areas-region {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  border: 2px solid var(--item-color);
+  background: color-mix(in srgb, var(--item-color) 16%, var(--color-surface));
+  font-size: 0.85rem;
+  min-width: 0;
+}
+.layout-areas-region code {
+  align-self: flex-start;
+  font-weight: 700;
+}
+
+/* 4. Collapse to one column when the CONTAINER (not the window) is narrow */
+@container (max-width: 540px) {
+  .layout-areas {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'header' 'main' 'sidebar' 'aside' 'footer';
+  }
+}

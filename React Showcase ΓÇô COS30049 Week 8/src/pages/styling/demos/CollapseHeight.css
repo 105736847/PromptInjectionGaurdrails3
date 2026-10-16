@@ -1,0 +1,62 @@
+.styling-faq {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.styling-faq-item + .styling-faq-item {
+  border-top: 1px solid var(--color-border);
+}
+.styling-faq-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 14px 16px;
+  border: 0;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+}
+.styling-faq-button:hover {
+  background: var(--color-surface-2);
+}
+.styling-faq-chevron {
+  flex-shrink: 0;
+  transition: transform 350ms ease;
+}
+.styling-faq-button[aria-expanded='true'] .styling-faq-chevron {
+  transform: rotate(180deg);
+}
+
+/* ✅ The grid trick: animate the single row from 0fr to 1fr */
+.styling-collapse.uses-grid {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 350ms ease;
+}
+.styling-collapse.uses-grid.is-open {
+  grid-template-rows: 1fr;
+}
+.styling-collapse-inner {
+  overflow: hidden; /* hides the content while the row is (nearly) 0 high */
+  min-height: 0;
+}
+.styling-collapse-inner p {
+  margin: 0;
+  padding: 0 16px 16px;
+  color: var(--color-text-muted);
+}
+
+/* ❌ The naive version: height 0 → auto cannot be interpolated, so it snaps */
+.styling-collapse.uses-height {
+  height: 0;
+  overflow: hidden;
+  transition: height 350ms ease;
+}
+.styling-collapse.uses-height.is-open {
+  height: auto;
+}

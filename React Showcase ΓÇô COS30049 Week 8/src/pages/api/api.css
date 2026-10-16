@@ -1,0 +1,261 @@
+/* Styles used only by the Fetching Data page (all classes start with "api-") */
+
+.api-post-list,
+.api-crud-list,
+.api-todo-list,
+.api-people,
+.api-results {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.api-post-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+.api-post {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.api-post strong::first-letter {
+  text-transform: uppercase;
+}
+
+/* Skeleton placeholders: grey bars with a moving shine */
+.api-skeleton {
+  display: block;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 0%,
+    var(--color-surface-3) 50%,
+    var(--color-surface-2) 100%
+  );
+  background-size: 200% 100%;
+  animation: api-shimmer 1.2s ease-in-out infinite;
+}
+.api-skeleton-circle {
+  background: var(--color-surface-3);
+}
+@keyframes api-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+/* Old data stays visible (dimmed) while new data loads */
+.api-stale {
+  opacity: 0.55;
+  transition: opacity var(--transition);
+}
+
+.api-inline-select {
+  width: auto;
+  max-width: 100%;
+}
+.api-spinner-sm {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.api-todo-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+.api-done {
+  flex-shrink: 0;
+  color: var(--color-success);
+}
+.api-done-text {
+  color: var(--color-text-muted);
+  text-decoration: line-through;
+}
+
+/* API explorer */
+.api-request-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.api-request-bar .input {
+  flex: 1 1 200px;
+  width: auto;
+}
+.api-url {
+  word-break: break-all;
+}
+.api-json {
+  max-height: 320px;
+}
+
+/* Two columns (content + log) that stack on small screens */
+.api-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.api-log {
+  min-height: 140px;
+}
+.api-warning-text {
+  color: var(--color-warning);
+  font-weight: 600;
+}
+
+.api-crud-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+.api-crud-row .btn-icon {
+  width: 32px;
+  height: 32px;
+}
+.api-crud-row .btn-icon:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.api-edit-input {
+  flex: 1 1 180px;
+  width: auto;
+}
+
+/* Network switches */
+.api-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  padding: 8px 12px 10px;
+}
+.api-toggles .switch {
+  font-size: 0.85rem;
+}
+
+/* Infinite list */
+.api-scroll {
+  max-height: 320px;
+  overflow-y: auto;
+  padding: 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.api-people li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  font-size: 0.9rem;
+}
+.api-people .avatar {
+  width: 32px;
+  height: 32px;
+  font-size: 0.75rem;
+}
+.api-people li .api-skeleton {
+  flex: 0 1 50%;
+}
+.api-sentinel {
+  height: 1px;
+}
+.api-load-more {
+  display: flex;
+  width: 100%;
+  margin-top: 8px;
+}
+.api-scroll .alert {
+  margin-top: 8px;
+}
+
+/* Debounced search */
+.api-search {
+  position: relative;
+}
+.api-search > svg {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-subtle);
+  pointer-events: none;
+}
+.api-search .input {
+  padding-left: 36px;
+}
+.api-results li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 8px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.api-results mark {
+  padding: 0 1px;
+  border-radius: 3px;
+  background: var(--color-warning-soft);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Prediction result */
+.api-prediction {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.api-prediction > strong {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+.api-pass {
+  color: var(--color-success);
+}
+.api-risk {
+  color: var(--color-warning);
+}
+.api-prediction progress {
+  width: 100%;
+  height: 10px;
+}
+
+/* Cheat sheet */
+.api-cheatsheet .table caption {
+  font-size: 0.95rem;
+}
+.api-wrap {
+  white-space: normal !important;
+  min-width: 220px;
+}
+
+.api-checklist li + li {
+  margin-top: 4px;
+}
+
+@media (max-width: 760px) {
+  .api-split {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

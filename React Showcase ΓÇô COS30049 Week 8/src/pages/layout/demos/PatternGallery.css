@@ -1,0 +1,162 @@
+/* The gallery itself: as many 280px+ tiles per row as fit */
+.layout-patterns {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+  gap: 16px;
+}
+.layout-pattern {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+}
+.layout-pattern figcaption {
+  font-weight: 650;
+}
+.layout-pattern-demo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+.layout-pattern-code {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: var(--code-bg);
+  border: 1px solid var(--color-border);
+  font-size: 0.74rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* 1. Centring */
+.layout-center {
+  position: relative; /* needed by the "absolute" method */
+  height: 110px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  border: 2px dashed var(--color-border-strong);
+}
+.layout-center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.layout-center-grid {
+  display: grid;
+  place-items: center;
+}
+.layout-center-absolute .layout-center-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.layout-center-child {
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+/* 2. Push to the end with an auto margin */
+.layout-nav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  font-size: 0.85rem;
+}
+.layout-nav-end {
+  margin-left: auto; /* eats all the free space on its left */
+}
+
+/* 3. Intrinsic sidebar: wraps when main would get narrower than 170px */
+.layout-sidebar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 140px;
+  max-width: 100%;
+  padding: 6px;
+  overflow: auto;
+  resize: horizontal;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+  font-size: 0.8rem;
+}
+.layout-sidebar-side {
+  flex: 1 1 90px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--chart-2) 22%, var(--color-surface));
+}
+.layout-sidebar-main {
+  flex: 999 1 170px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--chart-1) 18%, var(--color-surface));
+}
+
+/* 4. Sticky headers inside a scroll container */
+.layout-sticky-list {
+  max-height: 180px;
+  overflow-y: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.layout-sticky-list h4 {
+  position: sticky;
+  top: 0;
+  margin: 0;
+  padding: 6px 10px;
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 0.8rem;
+}
+.layout-sticky-list ul {
+  margin: 0;
+  padding: 4px 10px 8px 28px;
+  font-size: 0.85rem;
+}
+
+/* 5. Masonry-like layout with CSS multi-column */
+.layout-masonry {
+  columns: 2 110px;
+  column-gap: 8px;
+}
+.layout-masonry-note {
+  break-inside: avoid; /* never split a note across two columns */
+  margin: 0 0 8px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--chart-3) 20%, var(--color-surface));
+  border-left: 3px solid var(--chart-3);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* 6. aspect-ratio: give one dimension, the browser works out the other */
+.layout-ratio-box {
+  display: grid;
+  place-items: center;
+  align-self: center;
+  height: 130px;
+  max-width: 100%;
+  border-radius: var(--radius);
+  background: linear-gradient(135deg, var(--chart-1), var(--chart-6));
+  color: var(--color-on-primary);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  transition: aspect-ratio 200ms ease;
+}

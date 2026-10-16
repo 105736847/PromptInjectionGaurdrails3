@@ -1,0 +1,141 @@
+/* Shared by UploadProgress.jsx and EnrolmentProgress.jsx */
+
+.upload {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Linear bar */
+.track {
+  position: relative;
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+}
+.fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  transition: width 150ms linear, background var(--transition);
+}
+.fill[data-done='true'] {
+  background: var(--color-success);
+}
+
+/* Indeterminate: a short bar that slides back and forth forever */
+.indeterminate::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 35%;
+  border-radius: inherit;
+  background: var(--color-primary);
+  animation: slide 1.3s ease-in-out infinite;
+}
+/* With reduced motion there is no sliding – show a calm, half-transparent full bar */
+@media (prefers-reduced-motion: reduce) {
+  .indeterminate::after {
+    left: 0;
+    width: 100%;
+    opacity: 0.4;
+    animation: none;
+  }
+}
+@keyframes slide {
+  from {
+    left: -35%;
+  }
+  to {
+    left: 100%;
+  }
+}
+
+/* Circular ring (SVG). Colours are set in CSS so they follow the theme. */
+.ring {
+  flex-shrink: 0;
+}
+.ringTrack {
+  fill: none;
+  stroke: var(--color-surface-3);
+}
+.ringValue {
+  fill: none;
+  stroke: var(--color-primary);
+  stroke-linecap: round;
+  transition: stroke-dashoffset 150ms linear;
+}
+.ringText {
+  fill: var(--color-text);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+/* Multi-step (segmented) progress */
+.segments {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.segment {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.segmentBar {
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  transition: background 300ms ease;
+}
+.segment[data-state='done'] .segmentBar {
+  background: var(--color-success);
+}
+.segment[data-state='current'] .segmentBar {
+  background: color-mix(in srgb, var(--color-primary) 45%, var(--color-surface-3));
+}
+.segmentLabel {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+  line-height: 1.3;
+}
+.segment[data-state='done'] .segmentLabel {
+  color: var(--color-success);
+}
+.segment[data-state='current'] .segmentLabel {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+/* Spinner that uses the button's own text colour, so it works on any button */
+.buttonSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 520px) {
+  .segments {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  }
+  .segmentLabel {
+    display: none; /* too cramped – the counter above still tells the story */
+  }
+}

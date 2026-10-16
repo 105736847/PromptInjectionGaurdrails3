@@ -1,0 +1,119 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 28px 32px;
+}
+
+/* Notification count badge on an icon button */
+.bell {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--color-border);
+}
+.count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border: 2px solid var(--color-surface); /* a "cut-out" ring around the badge */
+  border-radius: var(--radius-full);
+  background: var(--color-danger);
+  color: var(--color-surface); /* white in light mode, near-black on the lighter dark-mode red */
+  font-size: 0.7rem;
+  font-weight: 700;
+  line-height: 16px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Avatar + status dot */
+.avatarWrap {
+  position: relative;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.status {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+  background: var(--color-text-subtle);
+}
+.status[data-status='online'] {
+  background: var(--color-success);
+}
+.status[data-status='away'] {
+  background: var(--color-warning);
+}
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Overlapping avatars: negative margin pulls each one over the previous */
+.group {
+  display: flex;
+}
+.group > * {
+  margin-left: -10px;
+  border: 2px solid var(--color-surface);
+  border-radius: 50%;
+  box-sizing: content-box;
+}
+.group > *:first-child {
+  margin-left: 0;
+}
+.more {
+  width: 40px;
+  height: 40px;
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: 0.8rem;
+}
+
+/* Removable chips */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 30px;
+  padding: 0 4px 0 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+.chip button {
+  display: grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.chip button:hover {
+  background: color-mix(in srgb, currentColor 18%, transparent);
+}

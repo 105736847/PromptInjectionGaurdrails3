@@ -1,0 +1,47 @@
+.layout-fit-figure {
+  margin: 0;
+}
+.layout-fit-figure figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+}
+
+/* The frame is the positioning parent for the ghost layer */
+.layout-fit-frame {
+  position: relative;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+
+.layout-fit-grid,
+.layout-fit-ghosts {
+  display: grid;
+  gap: 10px; /* must match GAP in the JSX so the maths is right */
+}
+
+/* Ghost tracks sit exactly behind the real grid */
+.layout-fit-ghosts {
+  position: absolute;
+  inset: 0;
+}
+.layout-fit-ghosts span {
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--color-warning);
+  border-radius: var(--radius-sm);
+  color: var(--color-warning);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.layout-fit-grid {
+  position: relative; /* paint the items above the ghosts */
+}
+.layout-fit-item {
+  height: 64px;
+  font-size: 1.1rem;
+}

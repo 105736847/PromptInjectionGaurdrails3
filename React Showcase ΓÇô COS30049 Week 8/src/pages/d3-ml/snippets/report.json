@@ -1,0 +1,31 @@
+{
+  "model": "GradientBoostingClassifier",
+  "n_test": 1000,
+  "roc": {
+    "auc": 0.9531,
+    "fpr": [0, 0, 0.0012, 0.0036, "…"],
+    "tpr": [0, 0.0063, 0.2125, 0.4, "…"],
+    "thresholds": [1, 0.9981, 0.9577, 0.9012, "…"]
+  },
+  "pr": {
+    "ap": 0.8731,
+    "precision": [0.16, 0.1605, "…", 1],
+    "recall": [1, 1, "…", 0.0063],
+    "thresholds": [0.0021, 0.0043, "…", 0.9981]
+  },
+  "confusion_matrix": { "threshold": 0.5, "tn": 786, "fp": 54, "fn": 21, "tp": 139 },
+  "feature_importance": [
+    { "feature": "domain_age_days", "value": 0.31 },
+    { "feature": "has_https", "value": 0.09 },
+    "…"
+  ],
+  "calibration": {
+    "predicted": [0.05, 0.14, 0.25, "…"],
+    "observed": [0.17, 0.26, 0.32, "…"]
+  },
+  "scores": [
+    { "score": 0.1692, "label": 0 },
+    { "score": 0.8800, "label": 1 },
+    "… one row per test URL"
+  ]
+}

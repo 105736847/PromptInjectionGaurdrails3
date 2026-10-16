@@ -1,0 +1,60 @@
+/* A pretend browser window. `transform` makes it the containing block for
+   position: fixed children, so "fixed" stays inside the demo. */
+.layout-pos-viewport {
+  height: 330px;
+  overflow: hidden;
+  transform: translateZ(0);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.layout-pos-scroll {
+  height: 100%;
+  overflow-y: auto;
+  padding: 12px;
+}
+
+/* position: relative on the parent → absolute children are placed inside it */
+.layout-pos-parent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 30px 12px 12px;
+  border: 2px dashed var(--color-info);
+  border-radius: var(--radius);
+}
+.layout-pos-label {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--color-info);
+}
+
+.layout-pos-sibling {
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-3);
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.layout-pos-box {
+  z-index: 2;
+  width: 190px;
+  max-width: 70%;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+  box-shadow: var(--shadow-lg);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.layout-pos-filler {
+  height: 260px;
+}

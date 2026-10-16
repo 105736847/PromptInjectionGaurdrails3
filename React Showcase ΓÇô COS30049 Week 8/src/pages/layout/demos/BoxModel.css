@@ -1,0 +1,68 @@
+/* Colours roughly match the box-model diagram in Chrome/Firefox DevTools,
+   mixed with theme tokens so they also work in dark mode. */
+.layout-bm {
+  --bm-margin: color-mix(in srgb, var(--chart-3) 30%, var(--color-surface));
+  --bm-border: color-mix(in srgb, var(--color-warning) 45%, var(--color-surface));
+  --bm-padding: color-mix(in srgb, var(--chart-5) 30%, var(--color-surface));
+  --bm-content: color-mix(in srgb, var(--color-info) 30%, var(--color-surface));
+}
+
+/* ---- The diagram: each layer is a 3×3 grid with the child in the middle ---- */
+.layout-bm-layer {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px 1fr 34px;
+  grid-template-areas:
+    '. top .'
+    'left inner right'
+    '. bottom .';
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  border: 1px dashed color-mix(in srgb, var(--color-text) 30%, transparent);
+}
+.layout-bm-layer > .layout-bm-layer,
+.layout-bm-content {
+  grid-area: inner;
+}
+.layout-bm-top { grid-area: top; padding: 4px 0; }
+.layout-bm-bottom { grid-area: bottom; padding: 4px 0; }
+.layout-bm-left { grid-area: left; }
+.layout-bm-right { grid-area: right; }
+.layout-bm-name {
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+}
+.layout-bm-margin { background: var(--bm-margin); }
+.layout-bm-border { background: var(--bm-border); border-style: solid; }
+.layout-bm-padding { background: var(--bm-padding); }
+.layout-bm-content {
+  padding: 14px 8px;
+  border: 1px solid color-mix(in srgb, var(--color-text) 30%, transparent);
+  background: var(--bm-content);
+  font-weight: 700;
+}
+
+/* ---- The real element ---- */
+.layout-bm-scroll {
+  overflow-x: auto; /* big boxes scroll instead of breaking the page on phones */
+}
+.layout-bm-live {
+  display: flow-root; /* stops the child's margin "collapsing" through the parent */
+  width: fit-content;
+  background: var(--bm-margin); /* the parent shows through the transparent margin */
+}
+.layout-bm-box {
+  overflow: hidden;
+  border-style: solid;
+  border-color: var(--bm-border);
+  /* two backgrounds: content colour clipped to the content box, padding colour behind */
+  background: linear-gradient(var(--bm-content), var(--bm-content)) content-box, var(--bm-padding);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}

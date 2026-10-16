@@ -1,0 +1,103 @@
+/* Shared "playground" chrome for the Layout page.
+   All class names start with layout- because every CSS file is global once loaded. */
+
+/* Controls on the left, preview on the right – and it wraps to one column
+   on narrow screens WITHOUT a media query (the "intrinsic sidebar" pattern). */
+.layout-pg {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 20px;
+}
+.layout-pg-controls {
+  flex: 1 1 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+}
+.layout-pg-preview {
+  flex: 3 1 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.layout-control {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.layout-control-label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+.layout-control-label output {
+  color: var(--color-primary);
+}
+.layout-control input[type='range'] {
+  width: 100%;
+  margin: 0;
+}
+
+.layout-segmented {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.layout-segmented button {
+  flex: 1 1 auto;
+  padding: 5px 9px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.layout-segmented button:hover {
+  background: var(--color-surface-3);
+  color: var(--color-text);
+}
+.layout-segmented button[aria-pressed='true'] {
+  background: var(--color-surface);
+  color: var(--color-primary);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+/* A dashed "stage" that previews sit on, with a subtle dotted background */
+.layout-stage {
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+  background-color: var(--color-surface-2);
+  background-image: radial-gradient(var(--color-border-strong) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+
+/* Coloured numbered boxes used by several demos */
+.layout-item {
+  display: grid;
+  place-items: center;
+  min-width: 44px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--item-color, var(--chart-1)) 22%, var(--color-surface));
+  border: 2px solid var(--item-color, var(--chart-1));
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}

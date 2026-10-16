@@ -1,0 +1,408 @@
+/* Styles used only by the FastAPI Basics page (every class starts with "fastapi-").
+   Colours always come from the theme variables, so light and dark mode both work. */
+
+/* ---- small layout helpers ---------------------------------------------- */
+.fastapi-grow { flex: 1 1 240px; min-width: 0; }
+.fastapi-input-sm { width: 96px; }
+.fastapi-input-md { width: min(240px, 100%); }
+.fastapi-controls { align-items: flex-end; }
+/* "label text [input]" on one line, e.g. name = [Mia] */
+.fastapi-inline-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+.fastapi-ok { color: var(--color-success); }
+.fastapi-bad { color: var(--color-danger); }
+.fastapi-tall { max-height: 420px; }
+
+/* Two things side by side that fold into one column when space runs out */
+.fastapi-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 16px;
+  align-items: start;
+}
+.fastapi-panel {
+  min-width: 0;
+  padding: 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+.fastapi-panel-danger {
+  border-color: color-mix(in srgb, var(--color-danger) 45%, transparent);
+  background: color-mix(in srgb, var(--color-danger-soft) 55%, var(--color-surface));
+}
+.fastapi-panel-danger h4 svg { color: var(--color-danger); }
+.fastapi-panel-success {
+  border-color: color-mix(in srgb, var(--color-success) 45%, transparent);
+  background: color-mix(in srgb, var(--color-success-soft) 55%, var(--color-surface));
+}
+.fastapi-panel-success h4 svg { color: var(--color-success); }
+
+/* ---- 1. the request journey diagram -------------------------------------- */
+.fastapi-journey-wrap { container-type: inline-size; }
+.fastapi-journey {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr) 64px minmax(0, 1fr) 64px minmax(0, 1fr) 64px minmax(0, 1fr);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fastapi-journey-item { display: contents; } /* hops and links become grid cells */
+.fastapi-hop {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  overflow-wrap: anywhere;
+  transition: border-color 200ms ease, background 200ms ease, box-shadow 200ms ease, opacity 200ms ease;
+}
+.fastapi-hop strong { font-size: 0.9rem; line-height: 1.3; }
+.fastapi-hop-icon {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 9px;
+  background: var(--color-surface-2);
+  color: var(--color-text-muted);
+  transition: background 200ms ease, color 200ms ease;
+}
+.fastapi-hop[data-state='active'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  box-shadow: var(--focus-ring);
+}
+.fastapi-hop[data-state='active'] .fastapi-hop-icon { background: var(--color-primary); color: var(--color-on-primary); }
+.fastapi-hop[data-state='done'] { border-color: color-mix(in srgb, var(--color-success) 55%, transparent); }
+.fastapi-hop[data-state='done'] .fastapi-hop-icon { background: var(--color-success-soft); color: var(--color-success); }
+.fastapi-hop[data-state='error'] { border-color: var(--color-danger); background: var(--color-danger-soft); }
+.fastapi-hop[data-state='error'] .fastapi-hop-icon { color: var(--color-danger); }
+.fastapi-hop[data-state='skipped'] { opacity: 0.5; border-style: dashed; }
+
+/* The arrows between the boxes; a dot travels along the active one */
+.fastapi-link {
+  position: relative;
+  align-self: center;
+  height: 2px;
+  margin: 0 6px;
+  background: var(--color-border-strong);
+  transition: background 200ms ease;
+}
+.fastapi-link-label {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--color-text-subtle);
+  font-size: 0.68rem;
+  white-space: nowrap;
+}
+.fastapi-link::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  opacity: 0;
+}
+.fastapi-link[data-dir='out'] { background: var(--color-primary); }
+.fastapi-link[data-dir='out']::after { background: var(--color-primary); animation: fastapi-go 450ms ease-in-out forwards; }
+.fastapi-link[data-dir='back'] { background: var(--color-success); }
+.fastapi-link[data-dir='back']::after { background: var(--color-success); animation: fastapi-return 450ms ease-in-out forwards; }
+@keyframes fastapi-go { from { left: 0; opacity: 1; } to { left: calc(100% - 10px); opacity: 1; } }
+@keyframes fastapi-return { from { left: calc(100% - 10px); opacity: 1; } to { left: 0; opacity: 1; } }
+
+/* Narrow card (phones, or a narrow window): stack the diagram vertically */
+@container (max-width: 620px) {
+  .fastapi-journey { grid-template-columns: minmax(0, 1fr); }
+  .fastapi-hop { flex-direction: row; flex-wrap: wrap; align-items: center; column-gap: 10px; }
+  .fastapi-link { justify-self: center; width: 2px; height: 34px; margin: 4px 0; }
+  .fastapi-link-label { bottom: auto; top: 50%; left: 12px; transform: translateY(-50%); }
+  .fastapi-link::after { top: 0; left: -4px; }
+  .fastapi-link[data-dir='out']::after { animation-name: fastapi-go-down; }
+  .fastapi-link[data-dir='back']::after { animation-name: fastapi-go-up; }
+}
+@keyframes fastapi-go-down { from { top: 0; opacity: 1; } to { top: calc(100% - 10px); opacity: 1; } }
+@keyframes fastapi-go-up { from { top: calc(100% - 10px); opacity: 1; } to { top: 0; opacity: 1; } }
+
+.fastapi-trace {
+  margin: 0;
+  padding: 10px 14px 10px 34px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.fastapi-trace li.is-current { color: var(--color-primary); font-weight: 600; }
+.fastapi-rtt { margin: 0; }
+
+/* ---- request / response display (ResponseView) --------------------------- */
+.fastapi-response { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+.fastapi-response-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.fastapi-request-line { font-size: 0.8rem; overflow-wrap: anywhere; }
+.fastapi-method { font-weight: 700; color: var(--color-primary); }
+.fastapi-offline {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+  font-size: 0.88rem;
+}
+.fastapi-offline svg { flex-shrink: 0; margin-top: 3px; }
+.fastapi-offline span { color: var(--color-text); }
+
+.fastapi-facts {
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 14px;
+  margin: 0;
+  font-size: 0.88rem;
+}
+.fastapi-facts dt { color: var(--color-text-muted); }
+.fastapi-facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+
+/* ---- forms & URLs ------------------------------------------------------- */
+.fastapi-param-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 12px 16px;
+}
+.fastapi-param-hint { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 6px; }
+.fastapi-form { display: flex; flex-direction: column; gap: 14px; }
+
+.fastapi-url {
+  display: block;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--code-bg);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  overflow-wrap: anywhere;
+}
+.fastapi-url mark { padding: 0 3px; border-radius: 4px; color: var(--color-text); }
+.fastapi-url-path {
+  background: var(--color-primary-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-primary) 45%, transparent);
+}
+.fastapi-url-query {
+  background: var(--color-info-soft);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-info) 45%, transparent);
+}
+
+/* Table cells normally stay on one line (index.css). Long values and messages may wrap
+   instead, so a phone shows them without scrolling the table sideways. */
+.table td.fastapi-wrap { white-space: normal; overflow-wrap: anywhere; min-width: 7rem; }
+.table td.fastapi-wrap-wide { min-width: 14rem; } /* sentences, e.g. a 422 "msg" */
+
+/* ---- status codes table -------------------------------------------------- */
+.fastapi-status-table td { white-space: normal; min-width: 170px; vertical-align: middle; }
+.fastapi-status-table th[scope='row'] { white-space: normal; min-width: 110px; font-weight: 650; }
+.fastapi-status-table code { white-space: nowrap; }
+.fastapi-status-table tr.is-picked { background: var(--color-primary-soft); }
+.fastapi-status-table th,
+.fastapi-status-table td { padding: 8px 12px; }
+.fastapi-code-btn { min-width: 58px; font-family: var(--font-mono); }
+.fastapi-code-btn[data-tone='success'] { color: var(--color-success); border-color: color-mix(in srgb, var(--color-success) 45%, transparent); }
+.fastapi-code-btn[data-tone='warning'] { color: var(--color-warning); border-color: color-mix(in srgb, var(--color-warning) 45%, transparent); }
+.fastapi-code-btn[data-tone='danger'] { color: var(--color-danger); border-color: color-mix(in srgb, var(--color-danger) 45%, transparent); }
+.fastapi-code-btn[aria-pressed='true'] { background: var(--color-primary-soft); box-shadow: inset 0 0 0 1px var(--color-primary); }
+
+/* ---- key / value lists (response_model, headers) ------------------------- */
+/* container-type lets the rows react to the LIST's width (a narrow panel), not the window's */
+.fastapi-kv { container-type: inline-size; display: flex; flex-direction: column; margin: 0; font-size: 0.82rem; }
+.fastapi-kv > div {
+  display: grid;
+  grid-template-columns: minmax(90px, 38%) minmax(0, 1fr);
+  gap: 10px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+.fastapi-kv > div:last-child { border-bottom: 0; }
+.fastapi-kv dt { color: var(--color-text-muted); overflow-wrap: anywhere; }
+.fastapi-kv dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.fastapi-kv-leak { background: var(--color-danger-soft); border-radius: var(--radius-sm); }
+/* Narrow list: the key goes above its value, so names like password_hash never break mid-word */
+@container (max-width: 360px) {
+  .fastapi-kv > div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+
+/* PaginationDemo keeps the old page while the next one loads: dim it – but only if
+   loading takes a moment (the delay), so quick answers don't make the list blink. */
+.fastapi-compare[aria-busy] .fastapi-list { transition: opacity 150ms ease; }
+.fastapi-compare[aria-busy='true'] .fastapi-list { opacity: 0.55; transition-delay: 150ms; }
+
+.fastapi-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.88rem;
+}
+.fastapi-list li { padding: 6px 10px; border-radius: var(--radius-sm); background: var(--color-surface-2); }
+
+/* ---- 8. slow requests ---------------------------------------------------- */
+.fastapi-track {
+  position: relative;
+  height: 12px;
+  margin: 34px 28px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+}
+.fastapi-track::before,
+.fastapi-track::after {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-subtle);
+  font-size: 0.7rem;
+  white-space: nowrap;
+}
+.fastapi-track::before { content: '0 s'; right: calc(100% + 6px); }
+.fastapi-track::after { content: '10 s'; left: calc(100% + 6px); }
+.fastapi-track-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  border-radius: inherit;
+  background: var(--color-primary);
+}
+.fastapi-track-fill[data-kind='success'] { background: var(--color-success); }
+.fastapi-track-fill[data-kind='timeout'],
+.fastapi-track-fill[data-kind='cancel'],
+.fastapi-track-fill[data-kind='error'] { background: var(--color-warning); }
+.fastapi-track-mark {
+  position: absolute;
+  transform: translateX(-50%);
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition: left 150ms ease;
+}
+.fastapi-track-mark::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 24px;
+}
+.fastapi-track-server { bottom: calc(100% + 8px); }
+.fastapi-track-server::after { top: calc(100% + 2px); background: var(--color-success); }
+.fastapi-track-timeout { top: calc(100% + 8px); }
+.fastapi-track-timeout::after { bottom: calc(100% + 2px); background: var(--color-danger); }
+
+.fastapi-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.86rem;
+}
+.fastapi-timeline li {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 10px;
+  padding: 6px 10px;
+  border-left: 3px solid var(--color-border-strong);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--color-surface-2);
+  overflow-wrap: anywhere;
+}
+.fastapi-timeline li[data-kind='ok'] { border-left-color: var(--color-success); }
+.fastapi-timeline li[data-kind='fail'] { border-left-color: var(--color-danger); }
+.fastapi-timeline li[data-kind='wait'] { background: transparent; color: var(--color-text-muted); }
+.fastapi-timeline li.is-done { font-weight: 600; }
+
+.fastapi-gantt { display: flex; flex-direction: column; gap: 6px; }
+.fastapi-gantt-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.fastapi-gantt-track { position: relative; height: 20px; border-bottom: 1px solid var(--chart-grid); }
+.fastapi-gantt-bar {
+  position: absolute;
+  top: 3px;
+  height: 14px;
+  min-width: 2px;
+  border-radius: 4px;
+  background: var(--chart-1);
+}
+.fastapi-gantt-bar[data-kind='parallel'] { background: var(--chart-3); }
+
+/* ---- 9. playground --------------------------------------------------------- */
+.fastapi-header-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr) auto;
+  gap: 8px;
+  align-items: center;
+}
+
+/* ---- 10. embedded docs ----------------------------------------------------- */
+.fastapi-docs-frame {
+  display: block;
+  width: 100%;
+  height: 640px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+}
+
+/* ---- page-level ------------------------------------------------------------ */
+.fastapi-terminals {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+}
+.fastapi-terminals .demo-card { margin-bottom: 0; }
+.fastapi-terminals + * { margin-top: 24px; }
+
+@media (max-width: 560px) {
+  .fastapi-wide-only { display: none; }
+  .fastapi-facts { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .fastapi-facts dd { margin-bottom: 8px; }
+  .fastapi-header-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .fastapi-header-row input:nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+  .fastapi-docs-frame { height: 520px; }
+  .fastapi-timeline li { grid-template-columns: minmax(0, 1fr); gap: 0; }
+}

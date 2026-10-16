@@ -1,0 +1,103 @@
+/* ---- The scene: colourful blobs behind a glass card ---- */
+.styling-glass-scene {
+  position: relative;
+  min-height: 280px;
+  overflow: hidden;
+  isolation: isolate; /* keeps mix-blend-mode inside this box */
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+}
+.styling-glass-blob {
+  position: absolute;
+  border-radius: 50%;
+  animation: styling-float 8s ease-in-out infinite alternate;
+}
+.styling-glass-blob-1 {
+  top: -30px;
+  left: -20px;
+  width: 170px;
+  height: 170px;
+  background: radial-gradient(circle at 30% 30%, var(--chart-4), var(--chart-1));
+}
+.styling-glass-blob-2 {
+  right: -30px;
+  bottom: -40px;
+  width: 200px;
+  height: 200px;
+  background: conic-gradient(var(--chart-2), var(--chart-5), var(--chart-2));
+  animation-delay: -3s;
+}
+.styling-glass-blob-3 {
+  top: 45%;
+  left: 40%;
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, var(--chart-3), var(--chart-6));
+  animation-delay: -5s;
+}
+@keyframes styling-float {
+  to {
+    transform: translate(30px, 20px) scale(1.1);
+  }
+}
+
+/* mix-blend-mode: the word's colours are combined with the blobs below.
+   White is used on purpose – "difference" with white inverts colours. */
+.styling-glass-word {
+  position: absolute;
+  top: 12px;
+  left: 16px;
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(2.6rem, 9vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+/* The frosted glass card */
+.styling-glass-card {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 300px;
+  margin-left: auto;
+  padding: 16px;
+  border: 1px solid color-mix(in srgb, var(--color-surface) 60%, transparent);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--color-surface) var(--glass-tint), transparent);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(160%); /* older Safari */
+  backdrop-filter: blur(var(--glass-blur)) saturate(160%);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- Gradient gallery ---- */
+.styling-gradients {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+  gap: 14px;
+}
+.styling-gradient {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+}
+.styling-gradient-swatch {
+  height: 90px;
+  border-radius: var(--radius);
+}
+.styling-gradient figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.8rem;
+}
+.styling-gradient code {
+  font-size: 0.7rem;
+  word-break: break-word;
+}

@@ -1,0 +1,50 @@
+/* Only the gallery frame lives here – every specimen uses the GLOBAL classes. */
+.styling-ds-heading {
+  margin: 0 0 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.styling-ds-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.styling-ds-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 210px), 1fr));
+  gap: 12px;
+}
+.styling-ds-specimen {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+}
+.styling-ds-sample {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-height: 46px;
+}
+.styling-ds-sample > * {
+  flex: 0 1 auto;
+}
+.styling-ds-grid .styling-ds-sample > * {
+  flex: 1;
+}
+.styling-ds-label {
+  padding: 1px 6px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text-muted);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  cursor: copy;
+}
+.styling-ds-label:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}

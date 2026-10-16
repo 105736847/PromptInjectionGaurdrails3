@@ -1,0 +1,65 @@
+/* The backdrop covers the whole viewport. A dark scrim works in both themes. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100; /* above the sticky header (40) but below toasts (1000) */
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgb(10 12 18 / 0.55);
+  animation: fadeIn 150ms ease-out;
+}
+.dialog {
+  display: flex;
+  flex-direction: column;
+  width: min(520px, 100%);
+  max-height: calc(100vh - 32px);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  outline: none;
+  animation: popIn 180ms ease-out;
+}
+.sm {
+  width: min(400px, 100%);
+}
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 14px 12px 20px;
+  border-bottom: 1px solid var(--color-border);
+}
+.title {
+  margin: 0;
+  font-size: 1.1rem;
+}
+.body {
+  padding: 16px 20px;
+  overflow-y: auto; /* long content scrolls INSIDE the dialog */
+}
+.body > :last-child {
+  margin-bottom: 0;
+}
+.footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 12px 20px 16px;
+  border-top: 1px solid var(--color-border);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+}

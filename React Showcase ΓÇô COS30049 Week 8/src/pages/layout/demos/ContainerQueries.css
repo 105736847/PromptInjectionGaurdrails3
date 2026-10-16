@@ -1,0 +1,115 @@
+/* 1. The container. @container rules measure its CONTENT box
+      (the width minus padding and border). */
+.layout-cq-box {
+  container-type: inline-size;
+  container-name: profile;
+  width: 420px;
+  min-width: 200px;
+  max-width: 100%;
+  padding: 10px;
+  overflow: hidden; /* required for `resize` to work */
+  resize: horizontal;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+
+/* 2. Base styles = the NARROW layout: everything stacked and centred */
+.layout-cq-card {
+  display: grid;
+  gap: 12px;
+  justify-items: center;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  text-align: center;
+}
+.layout-cq-avatar {
+  width: 64px;
+  height: 64px;
+  font-size: 1.2rem;
+}
+.layout-cq-bio {
+  display: none;
+}
+.layout-cq-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  width: 100%;
+  margin: 0;
+}
+.layout-cq-stats div {
+  padding: 6px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-2);
+  text-align: center;
+}
+.layout-cq-stats dt {
+  font-size: 0.68rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+.layout-cq-stats dd {
+  margin: 0;
+  font-weight: 700;
+}
+.layout-cq-actions {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+.layout-cq-actions .btn {
+  flex: 1;
+}
+.layout-cq-mode::after {
+  content: 'narrow: stacked';
+}
+
+/* 3. MEDIUM: avatar beside the text, stats + buttons underneath */
+@container profile (min-width: 360px) {
+  .layout-cq-card {
+    grid-template-columns: auto 1fr;
+    justify-items: stretch;
+    align-items: center;
+    text-align: left;
+  }
+  .layout-cq-bio {
+    display: block;
+  }
+  .layout-cq-stats,
+  .layout-cq-actions,
+  .layout-cq-mode {
+    grid-column: 1 / -1;
+  }
+  .layout-cq-mode {
+    justify-self: start;
+  }
+  .layout-cq-mode::after {
+    content: 'medium: avatar beside text';
+  }
+}
+
+/* 4. WIDE: three columns – avatar | info | stats + actions */
+@container profile (min-width: 560px) {
+  .layout-cq-card {
+    grid-template-columns: auto 1fr 210px;
+  }
+  .layout-cq-avatar {
+    grid-row: 1 / span 2;
+    width: 84px;
+    height: 84px;
+  }
+  .layout-cq-info {
+    grid-row: 1 / span 2;
+  }
+  .layout-cq-stats,
+  .layout-cq-actions {
+    grid-column: 3;
+  }
+  .layout-cq-mode::after {
+    content: 'wide: three columns';
+  }
+}

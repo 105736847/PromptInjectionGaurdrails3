@@ -1,0 +1,42 @@
+.layout-grid-stage {
+  display: grid;
+  grid-auto-rows: minmax(64px, auto);
+  padding: 10px;
+  min-height: 160px;
+  overflow-x: auto; /* a 200px track may not fit on a phone – scroll instead of overflowing */
+}
+
+.layout-grid-item {
+  align-content: center;
+  gap: 2px;
+  padding: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+.layout-grid-item small {
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+.layout-grid-item[aria-pressed='true'] {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.layout-grid-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.layout-grid-presets .btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  white-space: normal;
+  height: auto;
+  min-height: 30px;
+  text-align: left;
+}
+.layout-grid-presets .btn[aria-pressed='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}

@@ -1,0 +1,58 @@
+.styling-list-input {
+  flex: 1 1 200px;
+  width: auto;
+}
+
+.styling-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.styling-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px; /* margin (not gap) so it can shrink to 0 on exit */
+  padding: 8px 8px 8px 14px;
+  overflow: hidden;
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  /* Enter: plays once, as soon as the <li> is mounted */
+  animation: styling-list-in 350ms ease-out;
+}
+
+/* Exit: slide away, then collapse the height so the items below move up smoothly */
+.styling-list-item.is-leaving {
+  animation: styling-list-out 450ms ease-in forwards;
+  pointer-events: none;
+}
+
+@keyframes styling-list-in {
+  from {
+    opacity: 0;
+    transform: translateX(-24px) scale(0.97);
+  }
+}
+
+@keyframes styling-list-out {
+  0% {
+    max-height: 80px;
+  }
+  55% {
+    opacity: 0;
+    transform: translateX(60px);
+    max-height: 80px;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(60px);
+    max-height: 0;
+    margin-bottom: 0;
+    padding-block: 0;
+    border-width: 0;
+  }
+}

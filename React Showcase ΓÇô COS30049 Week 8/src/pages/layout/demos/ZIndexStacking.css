@@ -1,0 +1,46 @@
+.layout-z-field {
+  width: 120px;
+}
+
+.layout-z-stage {
+  position: relative; /* the cards are positioned inside this box */
+  height: 240px;
+  overflow: hidden;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+
+/* z-index only works on positioned elements (anything but position: static) */
+.layout-z-card {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 52%;
+  height: 110px;
+  padding: 10px 12px;
+  border: 2px solid var(--item-color);
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--item-color) 25%, var(--color-surface));
+  box-shadow: var(--shadow-lg);
+  font-size: 0.85rem;
+}
+
+/* position + z-index → this element creates a NEW stacking context */
+.layout-z-trap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  border: 2px dashed var(--color-danger);
+  border-radius: var(--radius);
+}
+.layout-z-trap-label {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  color: var(--color-danger);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+}

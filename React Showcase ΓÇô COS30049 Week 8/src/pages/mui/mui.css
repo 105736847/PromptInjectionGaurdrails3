@@ -1,0 +1,28 @@
+/* Styles used only by the Material UI page (all classes start with "mui-") */
+
+/* index.css makes every <legend> bold. MUI's outlined TextField draws its border
+   with a hidden <legend> whose width must match the (normal-weight) label, so
+   give it back the normal weight inside this page. */
+.mui-page .MuiOutlinedInput-notchedOutline legend {
+  font-weight: inherit;
+}
+
+.mui-setup .demo-card {
+  margin-bottom: 0;
+}
+.mui-setup {
+  margin-bottom: 24px;
+}
+.mui-setup .code-block pre {
+  max-height: 420px;
+}
+
+.mui-compare {
+  margin-bottom: 24px;
+}
+.mui-compare td,
+.mui-compare th {
+  white-space: normal;
+  vertical-align: top;
+  min-width: 160px;
+}

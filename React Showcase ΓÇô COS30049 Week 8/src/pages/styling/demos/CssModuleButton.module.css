@@ -1,0 +1,43 @@
+/* CssModuleButton.module.css
+   Because the file name ends in .module.css, every class here is LOCAL.
+   Vite renames .button to something like "_button_1k3x9_2", so it can never
+   clash with a .button class written anywhere else in the app.
+   No need for long prefixes like "styling-" in this file! */
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: var(--radius-full); /* global CSS variables still work */
+  font: inherit;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.button:active {
+  transform: translateY(0);
+}
+
+/* `composes` = "also apply these classes" (a CSS Modules feature) */
+.primary {
+  composes: button;
+  background: var(--color-primary);
+  color: var(--color-on-primary);
+}
+.outline {
+  composes: button;
+  background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.large {
+  padding: 14px 28px;
+  font-size: 1.1rem;
+}

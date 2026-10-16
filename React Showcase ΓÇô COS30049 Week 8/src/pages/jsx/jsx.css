@@ -1,0 +1,301 @@
+/* Styles used only by the "JSX & Components" page.
+   All class names start with "jsx-" because every CSS file is global once loaded. */
+
+/* JsxExpressions ---------------------------------------------------------- */
+.jsx-card-highlight {
+  border-color: var(--color-success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-success) 20%, transparent);
+}
+.jsx-progress {
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-3);
+  overflow: hidden;
+}
+.jsx-progress-bar {
+  height: 100%;
+  border-radius: inherit;
+  transition: width 250ms ease, background-color var(--transition);
+}
+
+/* HtmlVsJsx --------------------------------------------------------------- */
+.jsx-diff-table td {
+  vertical-align: top;
+}
+.jsx-diff-table .jsx-why {
+  white-space: normal;
+  min-width: 220px;
+}
+
+/* Fragments ---------------------------------------------------------------- */
+.jsx-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.jsx-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+}
+.jsx-stat strong {
+  font-size: 1.3rem;
+}
+.jsx-glossary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  margin: 0;
+}
+.jsx-glossary dt {
+  font-weight: 650;
+}
+.jsx-glossary dd {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+/* JsxToObject -------------------------------------------------------------- */
+.jsx-rendered {
+  min-height: 90px;
+  display: grid;
+  place-items: center;
+}
+.jsx-rendered h2,
+.jsx-rendered ul {
+  margin: 0;
+}
+
+/* StudentCard ------------------------------------------------------------- */
+.jsx-student-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.jsx-student-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+.jsx-skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* UnitPicker -------------------------------------------------------------- */
+.jsx-unit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.jsx-unit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px 6px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  transition: border-color var(--transition), background var(--transition);
+}
+.jsx-unit.is-selected {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+}
+.jsx-unit-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 4px 6px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+/* Composition (Panel) ------------------------------------------------------ */
+.jsx-panel {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+}
+.jsx-panel-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface-2);
+}
+.jsx-panel-header h4 {
+  gap: 8px;
+}
+.jsx-panel-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  flex: 1;
+}
+.jsx-panel-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--color-border);
+}
+.jsx-panel-progress {
+  width: 100%;
+}
+.jsx-announcements {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 0.9rem;
+}
+
+/* ZeroPitfall / KeysDemo: "wrong" vs "right" cards ------------------------ */
+.jsx-pitfall-wrong {
+  border-color: color-mix(in srgb, var(--color-danger) 45%, var(--color-border));
+}
+.jsx-pitfall-right {
+  border-color: color-mix(in srgb, var(--color-success) 45%, var(--color-border));
+}
+.jsx-pitfall-output {
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  font-size: 1.05rem;
+}
+
+/* StudentFilter + PropsDrilling form row ---------------------------------- */
+.jsx-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 12px;
+}
+.jsx-filter-bar .field {
+  flex: 1 1 180px;
+}
+.jsx-filter-bar .check {
+  height: 40px;
+}
+.jsx-student-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 340px;
+  margin: 0;
+  padding: 0 4px 0 0;
+  overflow-y: auto;
+  list-style: none;
+}
+.jsx-student-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+}
+.jsx-student-row-name {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* KeysDemo ---------------------------------------------------------------- */
+.jsx-key-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.jsx-key-row {
+  display: grid;
+  grid-template-columns: auto 52px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+.jsx-key-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* PropsDrilling: nested boxes --------------------------------------------- */
+.jsx-tree-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+  padding: 20px 14px 14px;
+  border: 2px dashed var(--color-border-strong);
+  border-radius: var(--radius);
+}
+.jsx-tree-box.is-using {
+  border-style: solid;
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 5%, transparent);
+}
+.jsx-tree-label {
+  position: absolute;
+  top: -12px;
+  left: 12px;
+  padding: 1px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+@media (max-width: 520px) {
+  .jsx-stat {
+    padding: 8px;
+  }
+  .jsx-stat strong {
+    font-size: 1.05rem;
+  }
+  .jsx-glossary {
+    grid-template-columns: 1fr;
+  }
+  .jsx-key-row {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  .jsx-key-row .input {
+    grid-column: 1 / -1;
+  }
+}

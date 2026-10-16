@@ -1,0 +1,105 @@
+/* container-type turns the frame into a size container for @container rules */
+.frame {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 100%;
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--color-bg);
+  transition: max-width 300ms ease;
+}
+.frame[data-preview='mobile'] {
+  max-width: 360px;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 10px 14px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--color-primary);
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.desktopNav ul,
+.mobileNav ul {
+  display: flex;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.desktopNav a,
+.mobileNav a {
+  display: block;
+  padding: 6px 10px;
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.desktopNav a:hover,
+.mobileNav a:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+.desktopNav a[aria-current='page'],
+.mobileNav a[aria-current='page'] {
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+
+/* Hidden on wide containers (".navbar .burger" beats the global ".btn-icon") */
+.navbar .burger,
+.mobileNav {
+  display: none;
+}
+
+.mobileNav {
+  padding: 8px;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+.mobileNav ul {
+  flex-direction: column;
+}
+.mobileNav a {
+  padding: 10px 12px;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 24px 16px 32px;
+}
+
+/* ↓ The responsive part: when the FRAME (not the window) is 720px or narrower */
+@container (max-width: 720px) {
+  .desktopNav {
+    display: none;
+  }
+  .navbar .burger {
+    display: inline-grid;
+  }
+  .mobileNav {
+    display: block;
+  }
+}

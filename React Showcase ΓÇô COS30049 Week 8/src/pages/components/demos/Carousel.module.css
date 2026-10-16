@@ -1,0 +1,119 @@
+.carousel {
+  position: relative;
+  max-width: 760px;
+  margin-inline: auto;
+}
+.viewport {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  touch-action: pan-y; /* the browser still scrolls vertically; we handle horizontal swipes */
+  cursor: grab;
+  user-select: none;
+}
+.track {
+  display: flex;
+  transition: transform 450ms ease;
+}
+/* Follow the finger exactly while dragging – no easing */
+.viewport[data-dragging='true'] .track {
+  transition: none;
+}
+.viewport[data-dragging='true'] {
+  cursor: grabbing;
+}
+.slide {
+  position: relative;
+  flex: 0 0 100%;
+  margin: 0;
+}
+.slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 7;
+  object-fit: cover;
+}
+/* Text on a photo: a dark gradient keeps white text readable in both themes */
+.caption {
+  position: absolute;
+  inset: auto 0 0 0;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 20px 16px;
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.75));
+  color: #fff;
+  font-size: 0.9rem;
+}
+.caption strong {
+  font-size: 1.1rem;
+}
+
+.arrow {
+  position: absolute;
+  top: calc((100% - 44px) / 2);
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--color-surface) 88%, transparent);
+  color: var(--color-text);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+}
+.arrow:hover {
+  background: var(--color-surface);
+}
+.prev {
+  left: 12px;
+}
+.next {
+  right: 12px;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  height: 44px;
+  padding-top: 8px;
+}
+.dots {
+  display: flex;
+  gap: 4px;
+}
+.dot {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+/* A small visible circle inside a larger, easier-to-hit button */
+.dot::after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  margin: auto;
+  border-radius: 50%;
+  background: var(--color-border-strong);
+  transition: transform var(--transition), background var(--transition);
+}
+.dot[aria-current='true']::after {
+  background: var(--color-primary);
+  transform: scale(1.3);
+}
+
+@media (max-width: 520px) {
+  .arrow {
+    width: 32px;
+    height: 32px;
+  }
+}

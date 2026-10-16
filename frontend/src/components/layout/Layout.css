@@ -1,0 +1,125 @@
+
+/* Main application layout */
+.app-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation bar */
+.navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.navbar-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 22px 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Website title */
+.navbar-brand {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Navigation links */
+.navbar-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 28px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.navbar-links a:hover {
+  color: #111827;
+}
+
+.navbar-links a.active {
+  color: #111827;
+  font-weight: 600;
+}
+
+.navbar-placeholder {
+  color: #9ca3af;
+  font-size: 14px;
+  cursor: default;
+}
+
+.app-content {
+  flex: 1;
+  width: 100%;
+}
+
+/* Responsive navigation */
+@media (max-width: 700px) {
+  .navbar-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .navbar-links {
+    gap: 16px;
+  }
+}
+
+/* Footter */
+.footer {
+  background-color: #ffffff;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Footer content container */
+.footer-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Project name */
+.footer-brand {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+}
+
+/* Footer items */
+.footer-links {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 24px;
+
+  font-size: 13px;
+  color: #64748b;
+}
+
+/* Responsive footer */
+@media (max-width: 700px) {
+  .footer-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-links {
+    gap: 16px;
+  }
+}

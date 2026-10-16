@@ -1,0 +1,25 @@
+/* :user-invalid only matches AFTER the user has interacted with the field
+   (typed and left it, or tried to submit) – much friendlier than :invalid. */
+.native input:user-invalid {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+.native input:user-valid {
+  border-color: var(--color-success);
+}
+
+/* :invalid matches immediately – every required field is red on page load */
+.eager input:invalid {
+  border-color: var(--color-danger);
+  background: var(--color-danger-soft);
+}
+
+.messages {
+  margin: 4px 0 0;
+  padding: 8px 10px;
+  list-style: none;
+  border-radius: var(--radius-sm);
+  background: var(--code-bg);
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}

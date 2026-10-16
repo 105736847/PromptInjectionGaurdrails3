@@ -1,0 +1,12 @@
+# FastAPI back end for the React Showcase (Python 3.10+)
+# Install:  pip install -r requirements.txt
+fastapi[standard]>=0.115   # web framework + uvicorn server + python-multipart (forms/uploads)
+sqlmodel>=0.0.22           # SQLite database models (SQLAlchemy + Pydantic in one)
+pyjwt>=2.8                 # JSON Web Tokens for login
+scikit-learn>=1.5          # the machine-learning model
+numpy>=1.26
+joblib>=1.4                # save / load the trained model
+
+# testing
+pytest>=8
+httpx2>=2.0                # used by FastAPI's TestClient

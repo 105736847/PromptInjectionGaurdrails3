@@ -1,0 +1,66 @@
+.form :global(.required) {
+  color: var(--color-danger);
+}
+
+/* A <fieldset> used only for its `disabled` superpower – hide its border */
+.plain {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px 18px;
+}
+.full {
+  grid-column: 1 / -1;
+}
+
+/* Password input with the eye button sitting inside it */
+.passwordWrap {
+  position: relative;
+}
+.passwordWrap input {
+  padding-right: 44px;
+}
+.eye {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+}
+
+.meter {
+  flex: 1;
+  height: 10px;
+}
+
+.swatch {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border-strong);
+}
+
+/* A spinner that uses the button's text colour */
+.btnSpinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+/* In a CSS Module, keyframe names are made local too, so we declare our own */
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

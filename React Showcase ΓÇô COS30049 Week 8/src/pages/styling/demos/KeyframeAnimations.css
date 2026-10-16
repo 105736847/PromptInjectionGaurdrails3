@@ -1,0 +1,76 @@
+/* ---- Looping animations ---- */
+.styling-loops {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.styling-loop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 16px 6px 10px;
+  border-radius: var(--radius);
+  background: var(--color-surface-2);
+  color: var(--color-primary);
+}
+.styling-loop > span:first-child {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+/* One class on the parent pauses every animation inside it */
+.styling-loops.is-paused * {
+  animation-play-state: paused;
+}
+
+.styling-anim-pulse {
+  animation: styling-pulse 1.6s ease-out infinite;
+}
+@keyframes styling-pulse {
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-primary) 50%, transparent); }
+  100% { box-shadow: 0 0 0 16px transparent; }
+}
+
+.styling-anim-bounce {
+  animation: styling-bounce 1s ease-in-out infinite;
+}
+@keyframes styling-bounce {
+  0%, 100% { transform: translateY(-6px); }
+  50% { transform: translateY(6px); }
+}
+
+.styling-anim-spin {
+  animation: styling-spin 0.9s linear infinite;
+}
+@keyframes styling-spin {
+  to { transform: rotate(360deg); }
+}
+
+.styling-anim-beat {
+  color: var(--color-danger);
+  animation: styling-beat 1.2s ease-in-out infinite;
+}
+@keyframes styling-beat {
+  0%, 40%, 100% { transform: scale(1); }
+  20% { transform: scale(1.25); }
+  30% { transform: scale(0.95); }
+}
+
+/* ---- One-off animation: shake an invalid field ---- */
+.styling-anim-shake {
+  animation: styling-shake 0.45s ease-in-out;
+}
+@keyframes styling-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+@media (max-width: 420px) {
+  .styling-loops {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

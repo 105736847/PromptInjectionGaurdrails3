@@ -1,0 +1,16 @@
+/* Page-level styles for the Styling page (demo styles live next to each demo). */
+
+/* The comparison table has long sentences – let them wrap */
+.styling-approaches th,
+.styling-approaches td {
+  white-space: normal;
+  vertical-align: top;
+  min-width: 150px;
+}
+.styling-approaches td:first-child {
+  min-width: 170px;
+}
+.styling-approaches ul {
+  margin: 0;
+  padding-left: 1.1em;
+}

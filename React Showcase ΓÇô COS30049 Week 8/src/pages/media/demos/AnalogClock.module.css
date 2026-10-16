@@ -1,0 +1,43 @@
+/* SVG shapes are coloured with CSS too: fill / stroke instead of background / border */
+.clock {
+  width: min(240px, 100%);
+  height: auto;
+}
+.face {
+  fill: var(--color-surface);
+  stroke: var(--color-border-strong);
+  stroke-width: 3;
+}
+.minor {
+  stroke: var(--color-text-subtle);
+  stroke-width: 1;
+}
+.major {
+  stroke: var(--color-text);
+  stroke-width: 2.5;
+}
+.number {
+  fill: var(--color-text-muted);
+  font-size: 13px;
+  font-weight: 600;
+  text-anchor: middle;
+}
+.hour,
+.minute {
+  stroke: var(--color-text);
+  stroke-linecap: round;
+}
+.hour {
+  stroke-width: 6;
+}
+.minute {
+  stroke-width: 4;
+}
+.second {
+  stroke: var(--color-danger);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.pin {
+  fill: var(--color-danger);
+}

@@ -1,0 +1,67 @@
+.card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 360px;
+  padding: 16px;
+  border: 1px dashed var(--color-border-strong);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-2);
+  cursor: context-menu;
+  user-select: none;
+}
+.card svg {
+  color: var(--color-danger);
+}
+.card:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Fixed = relative to the browser window, matching clientX / clientY */
+.menu {
+  position: fixed;
+  z-index: 200;
+  min-width: 200px;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.88rem;
+  text-align: left;
+  cursor: pointer;
+}
+.item svg {
+  color: var(--color-text-muted);
+}
+.item:hover,
+.item:focus-visible {
+  background: var(--color-primary-soft);
+  outline: none;
+}
+.danger,
+.danger svg {
+  color: var(--color-danger);
+}
+.danger:hover,
+.danger:focus-visible {
+  background: var(--color-danger-soft);
+}
+.divider {
+  margin: 6px 4px;
+}

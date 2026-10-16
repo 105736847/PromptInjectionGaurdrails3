@@ -1,0 +1,58 @@
+.list {
+  max-height: 230px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 8px 12px 8px 3.2em;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  line-height: 1.9;
+}
+.list li::marker {
+  color: var(--color-text-subtle);
+  font-variant-numeric: tabular-nums;
+}
+
+.pager {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.pageButton {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.9rem;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+}
+.pageButton:hover:not(:disabled) {
+  border-color: var(--color-primary);
+}
+.pageButton[aria-current='page'] {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 700;
+}
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.gap {
+  display: inline-grid;
+  place-items: center;
+  min-width: 24px;
+  color: var(--color-text-subtle);
+}

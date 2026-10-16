@@ -1,0 +1,104 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 6px 6px 14px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-surface);
+  font-size: 0.9rem;
+  animation: slideIn 200ms ease-out;
+}
+.item svg {
+  color: var(--color-text-muted);
+}
+.name {
+  flex: 1;
+  min-width: 0;
+}
+.empty {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+}
+
+/* Reserve the snackbar's height so the page doesn't jump when it appears */
+.snackbarSlot {
+  min-height: 52px;
+}
+/* An "inverted" surface: text colour as background → dark in light mode, light in dark mode */
+.snackbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px 12px 16px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--color-text);
+  color: var(--color-surface);
+  box-shadow: var(--shadow-lg);
+  font-size: 0.9rem;
+  animation: slideIn 200ms ease-out;
+}
+.snackbar > span:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.undo {
+  padding: 6px 12px;
+  border: 0;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-primary-soft);
+  font: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+}
+.undo:hover {
+  background: color-mix(in srgb, var(--color-surface) 15%, transparent);
+}
+.undo:focus-visible {
+  outline-color: var(--color-surface);
+}
+/* A bar that shrinks from full width to zero while the undo window is open */
+.countdown {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--color-primary);
+  transform-origin: left;
+  animation: shrink linear forwards;
+}
+
+@keyframes shrink {
+  to {
+    transform: scaleX(0);
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}

@@ -1,0 +1,21 @@
+.styling-slider {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.styling-slider label {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+.styling-slider output {
+  font-family: var(--font-mono);
+  color: var(--color-primary);
+}
+.styling-slider input {
+  width: 100%;
+  margin: 0;
+}
