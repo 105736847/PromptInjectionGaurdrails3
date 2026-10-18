@@ -1,0 +1,119 @@
+.home-page {
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --surface: #ffffff;
+  --page: #f8fafc;
+  --field: #f8fafc;
+  --error: #dc2626;
+  --error-bg: #fef2f2;
+  --error-line: #fca5a5;
+
+  background: var(--page);
+  color: var(--ink);
+  padding: 48px 24px 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- Title ---------- */
+.home-title {
+  margin: 0 0 56px;
+  font-size: 2.25rem;
+  line-height: 1.15;
+  text-align: center;
+  max-width: 20ch;
+}
+
+/* ---------- Card ---------- */
+.home-card {
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 32px 40px;
+}
+
+.home-heading {
+  display: block;
+  margin-bottom: 16px;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* ---------- Prompt field ---------- */
+.home-textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 180px;
+  padding: 16px;
+  border: 1px solid var(--muted);
+  border-radius: 14px;
+  background: var(--field);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+.home-textarea::placeholder {
+  color: #94a3b8;
+}
+
+.home-textarea[aria-invalid='true'] {
+  border-color: var(--error-line);
+  background: var(--error-bg);
+}
+
+.home-textarea:focus-visible,
+.home-submit:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* ---------- Error ---------- */
+.home-error {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--error);
+}
+
+/* ---------- Submit ---------- */
+.home-submit {
+  display: block;
+  margin-top: 16px;
+  padding: 10px 24px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--ink);
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.home-submit:hover {
+  background: #1e293b;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 600px) {
+  .home-page {
+    padding: 32px 16px 64px;
+  }
+
+  .home-title {
+    margin-bottom: 32px;
+    font-size: 1.75rem;
+  }
+
+  .home-card {
+    padding: 24px 20px;
+  }
+}

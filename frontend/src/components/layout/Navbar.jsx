@@ -1,4 +1,5 @@
 
+
 import { NavLink } from 'react-router';
 
 function Navbar() {
@@ -20,8 +21,8 @@ function Navbar() {
             Results
           </NavLink>
 
-          <span className="navbar-placeholder">About Us</span>
-          <span className="navbar-placeholder">Our Data</span>
+          <NavLink to="/aboutUs">About Us</NavLink>
+          <NavLink to="/ourData">Our Data</NavLink>
 
         </nav>
       </div>
