@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from uuid import UUID
 import uvicorn
 import core
 
@@ -46,6 +47,19 @@ def process_prompt(data: Prompt):
         "received": data.prompt,
     }
 
-@app.get("/history")
-def read_data():
-    return core.get_prompts()
+@app.get("/results")
+def get_results():
+    return core.get_results()
+
+@app.get("/result")
+def get_result_by_id(id: int):
+    return core.get_result(id)
+
+@app.get("/result/latest_id")
+def get_latest_result_id():
+    return core.get_latest_result_id()
+
+@app.delete("/result/delete")
+def delete_result_by_id(id: int):
+    core.delete_result(id)
+    return { "status": "success" }
