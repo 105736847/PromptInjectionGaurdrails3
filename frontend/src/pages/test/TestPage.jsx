@@ -3,33 +3,37 @@ import { useEffect, useState } from 'react';
 import api from '../../api';
 
 function TestPage() {
-  const [getData, setGetData] = useState(null);
-  const [postData, setPostData] = useState(null);
-  const [message, setMessage] = useState('Hello from React!');
+  const [promptHistory, setPromptHistory] = useState(null);
+  const [promptResponse, setPromptResponse] = useState(null);
+  const [prompt, setPrompt] = useState('');
   const [error, setError] = useState('');
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await api.get('/');
-        setGetData(response.data);
-      } catch (err) {
-        setError(err.message);
-      }
-    }
-
-    fetchData();
+    fetchPromptHistory();
   }, []);
 
-  async function handlePost() {
+  async function fetchPromptHistory() {
+    try {
+      const response = await api.get('/history');
+      setPromptHistory(response.data);
+    } catch (err) {
+      setError(err.message);
+    }
+  }
+  
+  async function handlePromptSubmit() {
+    event.preventDefault();
+
     try {
       setError('');
 
-      const response = await api.post('/', {
-        message: message,
+      const response = await api.post('/prompt', {
+        prompt: prompt,
       });
 
-      setPostData(response.data);
+      setPromptResponse(response.data);
+      await fetchPromptHistory(); // updates history
+      setPrompt('')
     } catch (err) {
       setError(err.message);
     }
@@ -40,27 +44,30 @@ function TestPage() {
       <h1>Test Backend</h1>
 
       <section>
-        <h2>GET Request</h2>
-        <pre>{JSON.stringify(getData, null, 2)}</pre>
-        <br/>
-        <p>{getData?.message}</p>
+        <h2>Prompt history: (GET)</h2>
+        <h3>raw:</h3>
+        <pre>{JSON.stringify(promptHistory, null, 2)}</pre>
+        <h3>display:</h3>
+        <p>{promptHistory?.message}</p>
 
       </section>
-
+      <br/>
       <section>
-        <h2>POST Request</h2>
+        <h2>Submit prompt: (POST)</h2>
 
-        <input
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Enter a message"
-        />
+        <form onSubmit={handlePromptSubmit}>
+          <input
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="Enter a prompt"
+          />
+          <button type='submit'>
+          Submit Prompt
+          </button>
+        </form>
 
-        <button onClick={handlePost}>
-          Send POST Request
-        </button>
-
-        {postData && <pre>{JSON.stringify(postData, null, 2)}</pre>}
+        <h3>raw:</h3>
+        {promptResponse && <pre>{JSON.stringify(promptResponse, null, 2)}</pre>}
       </section>
 
       {error && <p>{error}</p>}
