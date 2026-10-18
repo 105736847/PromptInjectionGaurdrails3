@@ -1,32 +1,29 @@
 import model
+import db
 import connection
 
 import time
 from datetime import datetime
 
-db = {}
-next_id = 0
-
 def init():
+    db.init()
     connection.init_conn()
 
 def process_prompt(prompt):
-    global next_id
     result = model.process_prompt(prompt)
     result["prompt"] = prompt
     result["timestamp"] = time.time()
     result["datetime"] = datetime.now().strftime("%d-%m-%Y %H:%M:%S")
-    db[next_id] = result
-    next_id += 1
+    db.add_result(result)
 
 def get_results():
-    return db
+    return db.get_results()
 
 def delete_result(id):
-    db.pop(id)
+    db.delete_result(id)
 
 def get_result(id):
-    return db[id]
+    return db.get_result(id)
 
 def get_latest_result_id():
-    return max(db.items(), key=lambda item: item[1].get('timestamp', 0))[0]
+    return db.get_latest_result_id()
