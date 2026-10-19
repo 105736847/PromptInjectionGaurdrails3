@@ -1,0 +1,458 @@
+/* Main results page container */
+.results-page {
+  max-width: 850px;
+  margin: 36px auto 56px;
+  padding: 0 20px;
+}
+
+/* Status banner (the top)*/
+.result-banner {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px 20px;
+}
+
+/* Two-column results layout */
+.results-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 20px;
+  margin-top: 20px;
+  align-items: start;
+}
+
+/* Left column */
+.results-left {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Common card styling */
+.submitted-prompt,
+.guardrail-diagnostics,
+.safety-metrics,
+.prompt-history {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+/* Placeholder heights */
+.submitted-prompt {
+  min-height: 120px;
+}
+
+.guardrail-diagnostics {
+  min-height: 230px;
+}
+
+/* Section headings */
+.results-page h2,
+.results-page h3 {
+  margin-top: 0;
+  font-size: 15px;
+  color: #111827;
+}
+
+/* Check Another Prompt button */
+.results-actions {
+  display: flex;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.results-actions a {
+  background-color: #151b32;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+.results-actions a:hover {
+  background-color: #293452;
+}
+
+/* Prompt history */
+.prompt-history {
+  min-height: 200px;
+}
+
+@media (max-width: 700px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .results-page {
+    margin-top: 24px;
+    padding: 0 16px;
+  }
+}
+
+
+/* Result banner content */
+.result-banner {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.result-banner p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.result-banner h2 {
+  margin-bottom: 4px;
+}
+
+/* Banner icon */
+.result-banner__icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Allowed status */
+.result-banner--allowed {
+  background-color: #effaf2;
+  border-color: #bce7c7;
+}
+
+.result-banner--allowed h2 {
+  color: #228247;
+}
+
+.result-banner--allowed .result-banner__icon {
+  background-color: #44ab22;
+}
+
+/* Blocked status */
+.result-banner--blocked {
+  background-color: #fef2f2;
+  border-color: #f4b8b8;
+}
+
+.result-banner--blocked h2 {
+  color: #c33329;
+}
+
+.result-banner--blocked .result-banner__icon {
+  background-color: #d63d32;
+}
+
+/* Pending status */
+.result-banner--pending {
+  background-color: #fffbed;
+  border-color: #f5e49e;
+}
+
+.result-banner--pending h2 {
+  color: #bf8018;
+}
+
+.result-banner--pending .result-banner__icon {
+  background-color: #d68b20;
+}
+
+
+/* Submitted prompt text container */
+.submitted-prompt__text {
+  background-color: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+
+  padding: 16px;
+  margin-top: 12px;
+
+  font-size: 14px;
+  line-height: 1.7;
+  color: #334155;
+
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+/* Highlight suspicious phrases */
+.submitted-prompt__text mark {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 2px;
+}
+
+
+/* Guardrail diagnostic list */
+.diagnostics-list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+/* Individual diagnostic row */
+.diagnostics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  padding: 14px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.diagnostics-row:last-child {
+  border-bottom: none;
+}
+
+/* Diagnostic labels */
+.diagnostics-row h4 {
+  margin: 0 0 5px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.diagnostics-row p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.5;
+  color: #64748b;
+}
+
+/* Default count appearance */
+.diagnostics-count {
+  padding: 6px 12px;
+  border-radius: 6px;
+
+  background-color: #f1f5f9;
+  color: #475569;
+
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+/* Count greater than zero */
+.diagnostics-count--detected {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Pending or unavailable diagnostics */
+.diagnostics-message {
+  margin-top: 16px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+
+/* Donut chart and legend container */
+.safety-metrics__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.safety-metrics__chart {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+}
+
+.safety-metrics__chart circle {
+    transition: opacity 0.2s ease;
+}
+
+.safety-metrics__legend {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.safety-metrics__legend-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  color: #334155;
+}
+
+.safety-metrics__legend-item strong {
+  margin-left: auto;
+}
+
+.safety-metrics__swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+
+/* History table container */
+.history-table-wrapper {
+  overflow-x: auto;
+  margin-top: 16px;
+}
+
+/* Table layout */
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+/* Table cells */
+.history-table th,
+.history-table td {
+  padding: 14px 12px;
+  text-align: left;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Table headings */
+.history-table th {
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Prompt text */
+.history-prompt {
+  max-width: 270px;
+  overflow-wrap: anywhere;
+  color: #334155;
+}
+
+/* Status badges */
+.history-status {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.history-status--allowed {
+  background-color: #dcfce7;
+  color: #166534;
+}
+
+.history-status--blocked {
+  background-color: #fee2e2;
+  color: #b91c1c;
+}
+
+.history-status--pending {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+/* View button */
+.history-view-btn {
+  background-color: #151b32;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 7px 14px;
+  cursor: pointer;
+}
+
+.history-view-btn:hover:not(:disabled) {
+  background-color: #293452;
+}
+
+.history-view-btn:disabled {
+  background-color: #e5e7eb;
+  color: #64748b;
+  cursor: default;
+}
+
+
+/* Flip button */
+.safety-flip-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.safety-flip-actions button {
+    padding: 10px 20px;
+    background-color: #151b32;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.safety-flip-actions button:hover {
+    background-color: #293452;
+}
+
+/* Flip container */
+.safety-flip {
+    perspective: 1000px;
+    margin-top: 20px;
+}
+
+.safety-flip-inner {
+    position: relative;
+    display: grid;
+    transition: transform 0.6s ease;
+    transform-style: preserve-3d;
+}
+
+/* Rotate the card */
+.safety-flip.is-flipped .safety-flip-inner {
+    transform: rotateY(180deg);
+}
+
+/* Front and back faces */
+.safety-flip-face {
+    grid-area: 1 / 1;
+    position: relative;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    overflow: visible;
+}
+
+.safety-flip-back {
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+}
+
+/* Both donut containers */
+.attack-count-donut,
+.confidence-donut {
+    width: 100%;
+}
+
+/* Consistent heading styling */
+.attack-count-donut h4,
+.confidence-donut h4 {
+    margin: 0 0 20px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #111827;
+    text-align: left;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .safety-flip-inner {
+        transition: none;
+    }
+}
